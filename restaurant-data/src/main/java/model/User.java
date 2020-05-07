@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.ManyToMany;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.Set;
 
 /**
@@ -15,8 +12,8 @@ import java.util.Set;
  */
 @Getter
 @Setter
+@Entity
 @NoArgsConstructor
-@MappedSuperclass
 public class User extends BaseEntity{
 
     @Column(name = "first_name")

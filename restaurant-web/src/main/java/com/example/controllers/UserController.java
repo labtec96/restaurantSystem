@@ -1,5 +1,6 @@
 package com.example.controllers;
 
+import com.example.dto.UserDto;
 import com.example.validators.UserValidator;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import services.UserService;
  */
 @Controller
 public class UserController {
-
     @Autowired
     private UserService userService;
 
@@ -27,8 +27,8 @@ public class UserController {
 
     @GetMapping("/registration")
     public String registration(Model model) {
-        model.addAttribute("userForm", new User());
-
+        UserDto userDto = new UserDto();
+        model.addAttribute("user", userDto);
         return "registration";
     }
 
