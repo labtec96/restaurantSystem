@@ -31,7 +31,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //System.out.println("Elo trzy dwa zero");
-
         http
                 .authorizeRequests()
                     .antMatchers("/", "/home", "/about","/registration").permitAll()

@@ -2,8 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 >
 <head>
-    <title>Spring Security Example </title>
-    <div th:replace="fragments/header :: header-css"/>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <!-- this is header-css -->
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/4.4.1-1/css/bootstrap.min.css" />
+    <link rel="stylesheet" th:href="@{/css/main.css}"
+          href="../../css/main.css" />
 </head>
 <body>
 

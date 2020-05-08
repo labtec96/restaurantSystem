@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="pl">
 <head>
-    <title>Spring Security Example </title>
-    <div th:replace="fragments/header :: header-css"></div>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <!-- this is header-css -->
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/4.4.1-1/css/bootstrap.min.css" />
+    <link rel="stylesheet" th:href="@{/css/main.css}"
+          href="../../css/main.css" />
 </head>
 <body>
 
@@ -14,7 +17,7 @@
         <br/>
         <form th:action="@{/registration}" method="POST">
             <div class="form-group row" >
-                <label class="col-sm-3" th:utext="#{label.user.firstName}">First name</label>
+                <label class="col-sm-3" th:utext="#{label.user.firstName}">First nameę</label>
                 <span class="col-sm-5"><input class="form-control" name="firstName" value="" required="required"/></span>
                 <span id="firstNameError" class="alert alert-danger col-sm-4" style="display:none"></span>
                 <span class="help-block" th:if="${#fields.hasErrors('user.firstName')}">
