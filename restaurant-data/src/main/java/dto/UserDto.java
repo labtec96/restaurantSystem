@@ -4,11 +4,13 @@ package dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import model.Address;
 import validators.PasswordMatches;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.lang.reflect.Field;
 
 /**
  * Created by ch on 2020-05-07
@@ -39,4 +41,6 @@ public class UserDto {
     @NotEmpty
     @Email
     private String email;
+
+    private Address address;
 }

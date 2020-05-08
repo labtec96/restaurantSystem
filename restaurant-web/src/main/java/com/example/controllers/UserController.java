@@ -1,5 +1,6 @@
 package com.example.controllers;
 
+import dto.AddresDto;
 import dto.UserDto;
 import error.UserAlreadyExistException;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import services.SecurityService;
 import services.UserService;
-
 import javax.validation.Valid;
 
 /**
@@ -30,13 +30,15 @@ public class UserController {
     public String registration(Model model) {
         log.info("Get request /registration");
         UserDto userDto = new UserDto();
+        AddresDto addresDto = new AddresDto();
         model.addAttribute("user", userDto);
+        model.addAttribute("address",addresDto);
         return "registration";
     }
 
 
     @PostMapping("/registration")
-    public String registration(Model model,@ModelAttribute("user") @Valid UserDto userDto, BindingResult result){
+    public String registration(Model model, @ModelAttribute("user") @Valid UserDto userDto, @ModelAttribute("address") @Valid AddresDto addresDto, BindingResult result){
         log.info("Post request /registration");
        /* userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -50,9 +52,9 @@ public class UserController {
 
         try {
             log.info("Controller Starting to register user");
-            User registered = userService.registerNewUserAccount(userDto);
+            User registered = userService.registerNewUserAccount(userDto,addresDto);
         } catch (UserAlreadyExistException uaeEx) {
-            result.rejectValue("email", null, "There is already an account registered with that email");
+            result.rejectValue("email", null, "Istnieje już użytkownik z takim emailem");
         }
 
         if (result.hasErrors()){

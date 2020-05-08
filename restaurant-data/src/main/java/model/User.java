@@ -31,6 +31,10 @@ public class User extends BaseEntity{
     @Transient
     private String passwordConfirm;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
+
     @ManyToMany
     private Collection<Role> roles;
 
@@ -38,5 +42,13 @@ public class User extends BaseEntity{
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public String getUsername() {
+        return email;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
