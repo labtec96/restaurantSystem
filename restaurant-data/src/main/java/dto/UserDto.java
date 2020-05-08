@@ -1,9 +1,10 @@
-package model.dto;
+package dto;
 
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import validators.PasswordMatches;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Created by ch on 2020-05-07
  */
+@PasswordMatches
 @Getter
 @Setter
 @NoArgsConstructor

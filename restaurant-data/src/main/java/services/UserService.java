@@ -1,6 +1,6 @@
 package services;
 
-import model.dto.UserDto;
+import dto.UserDto;
 import error.UserAlreadyExistException;
 import model.User;
 

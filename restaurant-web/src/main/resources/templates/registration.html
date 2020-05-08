@@ -51,8 +51,13 @@
                 </span>
             </div>
             <div class="form-group row">
-                <label class="col-sm-3" th:utext="#{label.user.confirmPass}">confirm</label>
+                <label class="col-sm-3" th:utext="#{label.user.passwordConfirm}">confirm</label>
                 <span class="col-sm-5"><input id="matchPassword" class="form-control" name="passwordConfirm" value="" type="password" required="required"/></span>
+                <span class="help-block" th:if="${#fields.hasErrors('user')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('user')}" th:text="${err}"></li>
+                    </ul>
+                </span>
             </div>
             <br/>
             <button type="submit" class="btn btn-primary" th:utext="#{label.form.submit}">submit</button>

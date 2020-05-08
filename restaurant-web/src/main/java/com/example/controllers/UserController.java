@@ -1,7 +1,6 @@
 package com.example.controllers;
 
-import model.dto.UserDto;
-import com.example.validators.UserValidator;
+import dto.UserDto;
 import error.UserAlreadyExistException;
 import lombok.extern.slf4j.Slf4j;
 import model.User;
@@ -26,9 +25,6 @@ public class UserController {
 
     @Autowired
     private SecurityService securityService;
-
-    @Autowired
-    private UserValidator userValidator;
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -60,6 +56,10 @@ public class UserController {
         }
 
         if (result.hasErrors()){
+            result.getAllErrors().forEach(objectError -> {
+                log.error(objectError.toString());
+                log.error(objectError.getObjectName());
+            });
             return "registration";
         }
 

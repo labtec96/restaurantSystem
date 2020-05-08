@@ -3,9 +3,8 @@ package services;
 import java.util.Arrays;
 
 
-import model.dto.UserDto;
+import dto.UserDto;
 import error.UserAlreadyExistException;
-import model.Role;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
