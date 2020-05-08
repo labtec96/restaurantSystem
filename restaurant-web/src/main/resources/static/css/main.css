@@ -1,9 +1,11 @@
 h1{
-    color:#0000FF;
+    color: #000000;
+    text-align: center;
 }
 
 h2{
-    color:#FF0000;
+    color: #190000;
+    font-size: 20px;
 }
 
 footer{

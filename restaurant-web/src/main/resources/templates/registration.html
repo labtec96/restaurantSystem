@@ -11,20 +11,33 @@
 <body>
 
 <div th:replace="fragments/header :: header"></div>
-<div class="container">
+<div class="container" id="registrationForm">
     <div >
         <h1 th:utext="#{label.form.title}">form</h1>
+        <h2 th:utext="#{label.form.title}">form</h2>
         <br/>
         <form th:action="@{/registration}" method="POST">
             <div class="form-group row" >
-                <label class="col-sm-3" th:utext="#{label.user.firstName}">First nameę</label>
-                <span class="col-sm-5"><input class="form-control" name="firstName" value="" required="required"/></span>
-                <span id="firstNameError" class="alert alert-danger col-sm-4" style="display:none"></span>
-                <span class="help-block" th:if="${#fields.hasErrors('user.firstName')}">
-                    <ul>
-                        <li th:each="err : ${#fields.errors('user.firstName')}" th:text="${err}"></li>
-                    </ul>
-                </span>
+                <div class="col-sm-6">
+                    <label th:utext="#{label.user.firstName}">First nameę</label>
+                    <span><input class="form-control" name="firstName" value="" required="required"/></span>
+                    <span id="firstNameError" class="alert alert-danger col-sm-4" style="display:none"></span>
+                    <span class="help-block" th:if="${#fields.hasErrors('user.firstName')}">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('user.firstName')}" th:text="${err}"></li>
+                        </ul>
+                    </span>
+                </div>
+                <div class="col-sm-6">
+                    <label th:utext="#{label.user.street}">Street name</label>
+                    <span><input class="form-control" name="street" value=""/></span>
+                    <span id="AdresLine1Error" class="alert alert-danger col-sm-4" style="display:none"></span>
+                    <span class="help-block" th:if="${#fields.hasErrors('user.firstName')}">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('user.firstName')}" th:text="${err}"></li>
+                        </ul>
+                    </span>
+                </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3" th:utext="#{label.user.lastName}">last</label>
