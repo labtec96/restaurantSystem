@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * Created by ch on 2020-05-05
@@ -26,11 +26,13 @@ public class User extends BaseEntity{
 
     private String password;
 
+    private String email;
+
     @Transient
     private String passwordConfirm;
 
     @ManyToMany
-    private Set<Role> roles;
+    private Collection<Role> roles;
 
     public User(Long id, String firstName, String lastName) {
         super(id);

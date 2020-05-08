@@ -1,19 +1,18 @@
 package com.example.controllers;
 
-import com.example.dto.UserDto;
+import model.dto.UserDto;
 import com.example.validators.UserValidator;
+import error.UserAlreadyExistException;
 import lombok.extern.slf4j.Slf4j;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import services.SecurityService;
 import services.UserService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -41,7 +40,7 @@ public class UserController {
 
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("user") @Valid UserDto userDto, HttpServletRequest request, Errors errors) {
+    public String registration(Model model,@ModelAttribute("user") @Valid UserDto userDto, BindingResult result){
         log.info("Post request /registration");
        /* userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -52,6 +51,17 @@ public class UserController {
 
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
 */
+
+        try {
+            log.info("Controller Starting to register user");
+            User registered = userService.registerNewUserAccount(userDto);
+        } catch (UserAlreadyExistException uaeEx) {
+            result.rejectValue("email", null, "There is already an account registered with that email");
+        }
+
+        if (result.hasErrors()){
+            return "registration";
+        }
 
         return "redirect:/welcome";
     }
