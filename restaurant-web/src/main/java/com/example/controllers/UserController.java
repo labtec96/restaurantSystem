@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import services.SecurityService;
 import services.UserService;
 import javax.validation.Valid;
 
@@ -22,9 +21,6 @@ import javax.validation.Valid;
 public class UserController {
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private SecurityService securityService;
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -38,7 +34,7 @@ public class UserController {
 
 
     @PostMapping("/registration")
-    public String registration(Model model, @ModelAttribute("user") @Valid UserDto userDto, @ModelAttribute("address") @Valid AddresDto addresDto, BindingResult result){
+    public String registration(Model model, @ModelAttribute("user") @Valid UserDto userDto,BindingResult resultUser, @ModelAttribute("address") @Valid AddresDto addresDto, BindingResult resultAddress){
         log.info("Post request /registration");
        /* userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -54,11 +50,11 @@ public class UserController {
             log.info("Controller Starting to register user");
             User registered = userService.registerNewUserAccount(userDto,addresDto);
         } catch (UserAlreadyExistException uaeEx) {
-            result.rejectValue("email", null, "Istnieje już użytkownik z takim emailem");
+            resultUser.rejectValue("email", null , "Istnieje już użytkownik z takim emailem");
         }
 
-        if (result.hasErrors()){
-            result.getAllErrors().forEach(objectError -> {
+        if (resultUser.hasErrors()){
+            resultUser.getAllErrors().forEach(objectError -> {
                 log.error(objectError.toString());
                 log.error(objectError.getObjectName());
             });

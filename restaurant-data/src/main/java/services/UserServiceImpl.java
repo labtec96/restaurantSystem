@@ -1,6 +1,8 @@
 package services;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 
 import dto.AddresDto;
@@ -8,8 +10,13 @@ import dto.UserDto;
 import error.UserAlreadyExistException;
 import lombok.extern.slf4j.Slf4j;
 import model.Address;
+import model.Role;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,15 +44,17 @@ public class UserServiceImpl implements UserService{
     public User registerNewUserAccount(UserDto userDto, AddresDto addresDto) {
         log.info("Register new User");
         if (emailExists(userDto.getEmail())) {
-            throw new UserAlreadyExistException(
-                    "Istnieje już konto z takim adresem email: " + userDto.getEmail());
+            System.out.println("Konto z takim eamilem juz istenieje");
+            throw new UserAlreadyExistException("Istnieje już konto z takim adresem email: " + userDto.getEmail());
         }
+        System.out.println("Konto z takim emailem nie istenieje");
         User user = new User();
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
-        user.setPassword(userDto.getPassword());
+        System.out.println(userDto.getPassword());
+        System.out.println(bCryptPasswordEncoder.matches(userDto.getPassword(),bCryptPasswordEncoder.encode(userDto.getPassword())));
+        user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
-        user.setUsername(userDto.getEmail());
         user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
         if(!addresDto.checkNull()) {
             log.info("Address is not null");
@@ -70,4 +79,5 @@ public class UserServiceImpl implements UserService{
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
 }
