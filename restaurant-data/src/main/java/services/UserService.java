@@ -4,6 +4,7 @@ import dto.AddresDto;
 import dto.UserDto;
 import error.UserAlreadyExistException;
 import model.User;
+import model.VerificationToken;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
@@ -12,6 +13,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface UserService{
     User registerNewUserAccount(UserDto userDto, AddresDto addresDto)
             throws UserAlreadyExistException;
+
+    User getUser(String verificationToken);
+
+    void saveRegisteredUser(User user);
+
+    void createVerificationToken(User user, String token);
+
+    VerificationToken getVerificationToken(String VerificationToken);
 
     User findByUsername(String username);
 }

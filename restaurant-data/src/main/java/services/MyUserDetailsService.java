@@ -29,33 +29,31 @@ public class MyUserDetailsService implements UserDetailsService {
     private UserRepository userRepository;
     //
     @Override
-    public UserDetails loadUserByUsername(String email)
-            throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         log.info("LoadUserByUsername for email: " + email);
         User user = userRepository.findByEmail(email);
         if (user == null) {
             throw new UsernameNotFoundException(
                     "No user found with username: "+ email);
         }
-        org.springframework.security.core.userdetails.User.UserBuilder builder = null;
+       /* org.springframework.security.core.userdetails.User.UserBuilder builder = null;
         builder = org.springframework.security.core.userdetails.User.withUsername(user.getEmail());
         builder.password(user.getPassword());
         builder.roles(user.getRoles().toString());
 
         return builder.build();
+        */
 
-
-        /*boolean enabled = true;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
         return  new org.springframework.security.core.userdetails.User
                 (user.getEmail(),
-                        new BCryptPasswordEncoder().encode(user.getPassword()), enabled, accountNonExpired,
+                        user.getPassword(), user.isEnabled(), accountNonExpired,
                         credentialsNonExpired, accountNonLocked,
                         getAuthorities((List<Role>) user.getRoles()));
 
-         */
+
     }
 
     private static List<GrantedAuthority> getAuthorities (List<Role> roles) {

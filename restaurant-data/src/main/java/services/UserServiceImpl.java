@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import model.Address;
 import model.Role;
 import model.User;
+import model.VerificationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import repositories.AddressRepository;
 import repositories.RoleRepository;
 import repositories.UserRepository;
+import repositories.VerificationTokenRepository;
 
 /**
  * Created by ch on 2020-05-06
@@ -39,6 +41,8 @@ public class UserServiceImpl implements UserService{
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private AddressRepository addressRepository;
+    @Autowired
+    private VerificationTokenRepository tokenRepository;
     @Transactional
     @Override
     public User registerNewUserAccount(UserDto userDto, AddresDto addresDto) {
@@ -80,4 +84,25 @@ public class UserServiceImpl implements UserService{
         return userRepository.findByUsername(username);
     }
 
+    @Override
+    public User getUser(String verificationToken) {
+        User user = tokenRepository.findByToken(verificationToken).getUser();
+        return user;
+    }
+
+    @Override
+    public VerificationToken getVerificationToken(String VerificationToken) {
+        return tokenRepository.findByToken(VerificationToken);
+    }
+
+    @Override
+    public void saveRegisteredUser(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
+    public void createVerificationToken(User user, String token) {
+        VerificationToken myToken = new VerificationToken(token, user);
+        tokenRepository.save(myToken);
+    }
 }

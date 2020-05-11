@@ -6,11 +6,15 @@ import error.UserAlreadyExistException;
 import lombok.extern.slf4j.Slf4j;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import registration.OnRegistrationCompleteEvent;
 import services.UserService;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -21,6 +25,9 @@ import javax.validation.Valid;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    ApplicationEventPublisher eventPublisher;
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -34,7 +41,7 @@ public class UserController {
 
 
     @PostMapping("/registration")
-    public String registration(Model model, @ModelAttribute("user") @Valid UserDto userDto,BindingResult resultUser, @ModelAttribute("address") @Valid AddresDto addresDto, BindingResult resultAddress){
+    public String registration(Model model, @ModelAttribute("user") @Valid UserDto userDto,BindingResult resultUser, @ModelAttribute("address") @Valid AddresDto addresDto, BindingResult resultAddress, HttpServletRequest request){
         log.info("Post request /registration");
        /* userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -49,6 +56,9 @@ public class UserController {
         try {
             log.info("Controller Starting to register user");
             User registered = userService.registerNewUserAccount(userDto,addresDto);
+            String appUrl = request.getContextPath();
+            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered,
+                    request.getLocale(), appUrl));
         } catch (UserAlreadyExistException uaeEx) {
             resultUser.rejectValue("email", null , "Istnieje już użytkownik z takim emailem");
         }
@@ -61,17 +71,16 @@ public class UserController {
             return "registration";
         }
 
-        return "redirect:/welcome";
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
-        log.info("Get Login " + error);
         if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
+            model.addAttribute("error", "Login i hasło się nie zgadzają");
 
         if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
+            model.addAttribute("message", "Zostałeś wylogowane poprawnie");
 
         return "login";
     }

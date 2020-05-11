@@ -13,7 +13,6 @@ import java.util.Collection;
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
 public class User extends BaseEntity{
 
     @Column(name = "first_name")
@@ -37,6 +36,14 @@ public class User extends BaseEntity{
 
     @ManyToMany
     private Collection<Role> roles;
+
+    @Column(name = "enabled")
+    private boolean enabled;
+
+    public User() {
+        super();
+        this.enabled=false;
+    }
 
     public User(Long id, String firstName, String lastName) {
         super(id);
