@@ -1,3 +1,12 @@
+body {
+    height: 100vh;
+    padding: 0;
+}
+
+.full-height {
+    height: 100%;
+}
+
 h1{
     color: #000000;
     text-align: center;
@@ -16,11 +25,13 @@ footer{
 }
 
 
+
 /* Navigation /////////////////////////////////
 
 /* The side navigation menu */
 #openMenu {
-    font-size: 40px;
+    font-size: 60px;
+    color: black;
 }
 
 .sidenav {
@@ -57,14 +68,92 @@ footer{
     margin-left: 50px;
 }
 
-#main {
-    transition: margin-left .5s;
-    padding: 16px;
-}
-
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 }
 
-/* Navigation  ////////////////////////////////////////////////////////////////////////////////////////////////
+#main {
+    transition: margin-left .5s;
+}
+
+/* Navigation  */
+
+/* Welcome  */
+
+.bg-contrast-variant-1 {
+    color: #fff;
+    background-color: #4f8784;
+}
+
+.bg-absolute {
+    position: absolute;
+    top: 0;
+    height: 100%;
+}
+
+.bg-absolute-right {
+    right: 0;
+    left:calc(50% + 200px);
+    background: #adcab2;
+}
+
+.image-wrap{
+    overflow:hidden;
+    position:absolute;
+}
+.image-wrap img{
+
+    height: 80vh;
+    width: 90vh;
+}
+.image-wrap-offset{
+    margin-top:30px
+}
+.image-wrap-right{
+    right:0;
+    top:59px;
+    left:calc(50% - 120px)
+}
+/*@media(min-width:992px){
+    .image-wrap-offset{
+        margin-top:0
+    }
+}
+@media(min-width:992px){
+    .image-wrap{
+        position:absolute;
+        top:0;
+        height:100%
+    }
+    .image-wrap img{
+        max-width:none;
+        height:auto
+    }
+}
+@media(min-width:992px) and (min-width:2051px){
+    .image-wrap img{
+        width:100%
+    }
+}
+@media(min-width:992px){
+    .image-wrap-left{
+        left:0;
+        right:calc(50% - 1200px/2 - 30px/2 + (1200px/12) * 5.6)
+    }
+    .image-wrap-left img{
+        position:absolute;
+        right:0
+    }
+    .image-wrap-right{
+        right:0;
+        left:calc(50% - 1200px/2 - 30px/2 + (1200px/12) * 6)
+    }
+    .image-wrap-right-1{
+        right:0;
+        left:calc(50% - 1200px/2 - 30px/2 + (1200px/12) * 5.2)
+    }
+}
+*/
+/* Welcome  */
+
