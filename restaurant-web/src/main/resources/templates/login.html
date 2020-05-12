@@ -1,67 +1,64 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <!-- this is header-css -->
     <link rel="stylesheet" type="text/css"
-          href="webjars/bootstrap/4.4.1-1/css/bootstrap.min.css" />
+          href="webjars/bootstrap/4.4.1-1/css/bootstrap.min.css"/>
     <link rel="stylesheet" th:href="@{/css/main.css}"
-          href="../../css/main.css" />
+          href="../../css/main.css"/>
     <script src="js/main.js"></script>
 </head>
 <body>
 
-<div th:replace="fragments/header :: header"/>
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Clients</a>
-    <a href="#">Contact</a>
+    <a href="/reservation">Rezerwacja</a>
+    <a href="/menu">Menu</a>
+    <a href="/about">O nas</a>
+    <a href="/login">Zaloguj się</a>
 </div>
 
 <!-- Use any element to open the sidenav -->
-<span id="openMenu" onclick="openNav()">☰ open</span>
-<div class="container">
-    <div class="row" style="margin-top:20px">
-        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <form th:action="@{/login}" method="POST">
-                <fieldset>
-                    <h1>Zaloguj się</h1>
-                    <div class="alert alert-danger" th:if="${param.error != null}"
-                         th:text="${error}">error</div>
-                        <!--<div th:if="${param.error} and ${session}" th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION']}">
-                        </div> -->
-                    <div th:if="${param.logout}">
-                        <div class="alert alert-info">
-                            Zostales wylogowany
-                        </div>
-                    </div>
+<main class="full-height">
+    <div class="full-height" id="main">
+        <div class="full-height bg-contrast-variant-1">
+            <div id="openMenu" onclick="openNav()">☰</div>
+                <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+                    <form id="formLogin" th:action="@{/login}" method="POST" class="justify-content-center">
+                        <fieldset>
+                            <h1>Zaloguj się</h1>
+                            <div class="alert alert-danger" th:if="${param.error != null}"
+                                 th:text="${error}">error
+                            </div>
+                            <!--<div th:if="${param.error} and ${session}" th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION']}">
+                            </div> -->
+                            <div th:if="${param.logout}">
+                                <div class="alert alert-info">
+                                    Zostales wylogowany
+                                </div>
+                            </div>
 
-                    <div class="form-group">
-                        <input type="email" name="email" id="email" class="form-control input-lg"
-                               placeholder="email" required="true" autofocus="true"/>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="password" id="password" class="form-control input-lg"
-                               placeholder="Password" required="true"/>
-                    </div>
+                            <div class="form-group">
+                                <input type="email" name="email" id="email" class="form-control input-lg"
+                                       placeholder="email" required="true" autofocus="true"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" id="password" class="form-control input-lg"
+                                       placeholder="Password" required="true"/>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign In"/>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <input  type="submit" class="btn btn-lg btn-primary btn-block" value="Zaloguj się"/>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
     </div>
-
-</div>
-
-<div th:replace="fragments/footer :: footer"/>
+</main>
 
 </body>
 </html>

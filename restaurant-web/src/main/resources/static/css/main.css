@@ -32,6 +32,8 @@ footer{
 #openMenu {
     font-size: 60px;
     color: black;
+    float: left;
+    transition: 0.5s;
 }
 
 .sidenav {
@@ -75,6 +77,11 @@ footer{
 
 #main {
     transition: margin-left .5s;
+}
+
+/*login form */
+#formLogin{
+    margin-top: 35%;
 }
 
 /* Navigation  */
