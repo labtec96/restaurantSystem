@@ -30,6 +30,7 @@ footer{
 
 /* The side navigation menu */
 #openMenu {
+    margin-left: 15px;
     font-size: 60px;
     color: black;
     float: left;
