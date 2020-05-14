@@ -1,26 +1,21 @@
 package com.example.config;
 
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import services.MyUserDetailsService;
-import services.UserService;
 
 /**
  * Created by ch on 2020-05-06
@@ -42,11 +37,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/", "/home", "/about","/registration").permitAll()
+                    .antMatchers("/homepage","/homepage.html").access("hasAnyAuthority('ROLE_USER','ROLE_ADMIN')")
+                    .antMatchers("/admin/**").access("hasAnyAuthority('ROLE_ADMIN')")
                 .and()
                 .formLogin()
                     .loginPage("/login")
                     .usernameParameter("email")
-                    .defaultSuccessUrl("/homepage.html", true)
+                    .defaultSuccessUrl("/homepage.html", false)
                     .permitAll()
                 .and().csrf().ignoringAntMatchers("/h2-console/**")//don't apply CSRF protection to /h2-console
                 .and().headers().frameOptions().sameOrigin()
@@ -75,9 +72,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
-
+        System.out.println("dasdadsadad");
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        UserDetails user = User.withUsername("d@op.pl")
+                .passwordEncoder(encoder::encode)
+                .password("d")
+                .roles("ADMIN")
+                .build();
+        InMemoryUserDetailsManager uds = new InMemoryUserDetailsManager(user);
+        auth
+                .userDetailsService(uds)
+                .passwordEncoder(encoder);
         //auth.userDetailsService(userDetailsService);
     }
+
 
     @Bean
     public LocaleResolver localeResolver() {
