@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 /**
  * Created by ch on 2020-05-06
  */
-public interface UserService{
+public interface UserService extends CrudService <User,Long> {
     User registerNewUserAccount(UserDto userDto, AddresDto addresDto)
             throws UserAlreadyExistException;
 

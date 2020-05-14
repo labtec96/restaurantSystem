@@ -1,7 +1,9 @@
-package services;
+package services.springdatajpa;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -25,13 +27,14 @@ import repositories.AddressRepository;
 import repositories.RoleRepository;
 import repositories.UserRepository;
 import repositories.VerificationTokenRepository;
+import services.UserService;
 
 /**
  * Created by ch on 2020-05-06
  */
 @Slf4j
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -55,8 +58,8 @@ public class UserServiceImpl implements UserService{
         User user = new User();
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
-        System.out.println(userDto.getPassword());
-        System.out.println(bCryptPasswordEncoder.matches(userDto.getPassword(),bCryptPasswordEncoder.encode(userDto.getPassword())));
+        //System.out.println(userDto.getPassword());
+        //System.out.println(bCryptPasswordEncoder.matches(userDto.getPassword(),bCryptPasswordEncoder.encode(userDto.getPassword())));
         user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
         user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
@@ -104,5 +107,32 @@ public class UserServiceImpl implements UserService{
     public void createVerificationToken(User user, String token) {
         VerificationToken myToken = new VerificationToken(token, user);
         tokenRepository.save(myToken);
+    }
+
+    @Override
+    public Set<User> findAll() {
+        Set<User> users = new HashSet<>();
+        userRepository.findAll().forEach(users::add);
+        return users;
+    }
+
+    @Override
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public void delete(User user) {
+        userRepository.delete(user);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
     }
 }

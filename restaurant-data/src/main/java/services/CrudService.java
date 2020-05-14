@@ -1,4 +1,4 @@
-package services.springdatajpa;
+package services;
 
 import java.util.Set;
 

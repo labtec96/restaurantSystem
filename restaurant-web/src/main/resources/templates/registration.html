@@ -1,107 +1,126 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div th:replace="fragments/header :: header-css"></div>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <!-- this is header-css -->
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/4.4.1-1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"
+          href="../../css/main.css"/>
+    <script src="js/main.js"></script>
 </head>
 <body>
 
-<div class="container" id="registrationForm">
-    <div >
-        <h1 th:utext="#{label.form.title}">form</h1>
-        <br/>
-        <div class="form-group row" >
-            <h2 class="col-sm-6" th:utext="#{label.form.titleRequired}">form</h2>
-            <h2 class="col-sm-6" th:utext="#{label.form.titleAdditional}">form</h2>
-        </div>
-        <form th:action="@{/registration}" method="POST">
-            <div class="form-group row" >
-                <div class="col-sm-6">
-                    <label th:utext="#{label.user.firstName}">First nameę</label>
-                    <span><input class="form-control" name="firstName" value="" required="required"/></span>
-                    <span id="firstNameError" class="alert alert-danger col-sm-4" style="display:none"></span>
-                    <span class="help-block" th:if="${#fields.hasErrors('user.firstName')}">
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="/reservation">Rezerwacja</a>
+    <a href="/menu">Menu</a>
+    <a href="/about">O nas</a>
+    <a href="/login">Zaloguj się</a>
+</div>
+<div class="full-height bg-contrast-variant-1">
+    <div id="openMenu" onclick="openNav()">☰</div>
+    <div class="container" id="registrationForm">
+
+        <div>
+            <h1 th:utext="#{label.form.title}">form</h1>
+            <br/>
+            <div class="form-group row">
+                <h2 class="col-sm-6" th:utext="#{label.form.titleRequired}">form</h2>
+                <h2 class="col-sm-6" th:utext="#{label.form.titleAdditional}">form</h2>
+            </div>
+            <form th:action="@{/registration}" method="POST">
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label th:utext="#{label.user.firstName}">First nameę</label>
+                        <span><input class="form-control" name="firstName" value="" required="required"/></span>
+                        <span id="firstNameError" class="alert alert-danger col-sm-4" style="display:none"></span>
+                        <span class="help-block" th:if="${#fields.hasErrors('user.firstName')}">
                         <ul>
                             <li th:each="err : ${#fields.errors('user.firstName')}" th:text="${err}"></li>
                         </ul>
                     </span>
+                    </div>
+                    <div class="col-sm-3">
+                        <label th:utext="#{label.address.street}">Street</label>
+                        <span><input class="form-control" name="street" value=""/></span>
+                    </div>
+                    <div class="col-sm-3">
+                        <label th:utext="#{label.address.numberOfHouseOrApartment}">Number of house apartment
+                            name</label>
+                        <span><input class="form-control" name="numberOfHouseOrApartment" value=""/></span>
+                    </div>
                 </div>
-                <div class="col-sm-3">
-                    <label th:utext="#{label.address.street}">Street</label>
-                    <span><input class="form-control" name="street" value=""/></span>
-                </div>
-                <div class="col-sm-3">
-                    <label th:utext="#{label.address.numberOfHouseOrApartment}">Number of house apartment name</label>
-                    <span><input class="form-control" name="numberOfHouseOrApartment" value=""/></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-6">
-                    <label th:utext="#{label.user.lastName}">last</label>
-                    <span class="col-sm-5"><input class="form-control" name="lastName" value="" required="required"/></span>
-                    <span class="help-block" th:if="${#fields.hasErrors('user.lastName')}">
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label th:utext="#{label.user.lastName}">last</label>
+                        <span class="col-sm-5"><input class="form-control" name="lastName" value=""
+                                                      required="required"/></span>
+                        <span class="help-block" th:if="${#fields.hasErrors('user.lastName')}">
                         <ul>
                             <li th:each="err : ${#fields.errors('user.lastName')}" th:text="${err}"></li>
                         </ul>
                     </span>
+                    </div>
+                    <div class="col-sm-6">
+                        <label th:utext="#{label.address.city}">City</label>
+                        <span><input class="form-control" name="city" value=""/></span>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <label th:utext="#{label.address.city}">City</label>
-                    <span><input class="form-control" name="city" value=""/></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-6">
-                    <label th:utext="#{label.user.email}">email</label>
-                    <span class="col-sm-5"><input type="email" class="form-control" name="email" value="" required="required"/></span>
-                    <span class="help-block" th:if="${#fields.hasErrors('user.email')}">
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label th:utext="#{label.user.email}">email</label>
+                        <span class="col-sm-5"><input type="email" class="form-control" name="email" value=""
+                                                      required="required"/></span>
+                        <span class="help-block" th:if="${#fields.hasErrors('user.email')}">
                         <ul>
                             <li th:each="err : ${#fields.errors('user.email')}" th:text="${err}"></li>
                         </ul>
                     </span>
+                    </div>
+                    <div class="col-sm-6">
+                        <label th:utext="#{label.address.postcode}">Postcode</label>
+                        <span><input class="form-control" name="postcode" value=""/></span>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <label th:utext="#{label.address.postcode}">Postcode</label>
-                    <span><input class="form-control" name="postcode" value=""/></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-6">
-                    <label th:utext="#{label.user.password}">password</label>
-                    <span class="col-sm-5"><input id="password" class="form-control" name="password" value="" type="password" required="required"/></span>
-                    <span class="help-block" th:if="${#fields.hasErrors('user.password')}">
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label th:utext="#{label.user.password}">password</label>
+                        <span class="col-sm-5"><input id="password" class="form-control" name="password" value=""
+                                                      type="password" required="required"/></span>
+                        <span class="help-block" th:if="${#fields.hasErrors('user.password')}">
                         <ul>
                             <li th:each="err : ${#fields.errors('user.password')}" th:text="${err}"></li>
                         </ul>
                     </span>
+                    </div>
+                    <div class="col-sm-6">
+                        <label th:utext="#{label.address.province}">Province</label>
+                        <span><input class="form-control" name="province" value=""/></span>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <label th:utext="#{label.address.province}">Province</label>
-                    <span><input class="form-control" name="province" value=""/></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-6">
-                    <label th:utext="#{label.user.passwordConfirm}">confirm</label>
-                    <span class="col-sm-5"><input id="matchPassword" class="form-control" name="passwordConfirm" value="" type="password" required="required"/></span>
-                    <span class="help-block" th:if="${#fields.hasErrors('user')}">
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label th:utext="#{label.user.passwordConfirm}">confirm</label>
+                        <span class="col-sm-5"><input id="matchPassword" class="form-control" name="passwordConfirm"
+                                                      value="" type="password" required="required"/></span>
+                        <span class="help-block" th:if="${#fields.hasErrors('user')}">
                         <ul>
                             <li th:each="err : ${#fields.errors('user')}" th:text="${err}"></li>
                         </ul>
                     </span>
+                    </div>
+                    <div class="col-sm-6">
+                        <label th:utext="#{label.address.country}">Country</label>
+                        <span><input class="form-control" name="country" value=""/></span>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <label th:utext="#{label.address.country}">Country</label>
-                    <span><input class="form-control" name="country" value=""/></span>
-                </div>
-            </div>
+                <br/>
+                <button type="submit" class="btn btn-primary" th:utext="#{label.form.submit}">submit</button>
+            </form>
             <br/>
-            <button type="submit" class="btn btn-primary" th:utext="#{label.form.submit}">submit</button>
-        </form>
-        <br/>
+        </div>
     </div>
 </div>
-
-<div th:replace="fragments/footer :: footer"/>
-
 </body>
 </html>
