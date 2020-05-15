@@ -17,24 +17,4 @@ public class AdminController {
         return "admin/admin";
     }
 
-    @GetMapping("/admin/report")
-    public String report(Model model) {
-        return "report";
-    }
-
-    @GetMapping("/admin/worker")
-    public String worker(Model model) {
-        return "worker";
-    }
-
-    @GetMapping("/admin/reservation")
-    public String reservation(Model model) {
-        return "reservation";
-    }
-
-    @GetMapping("/admin/menu")
-    public String menu(Model model) {
-        return "menu";
-    }
-
 }

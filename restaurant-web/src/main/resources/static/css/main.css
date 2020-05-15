@@ -24,8 +24,6 @@ footer{
     margin-bottom: 5px;
 }
 
-
-
 /* Navigation /////////////////////////////////
 
 /* The side navigation menu */
@@ -165,3 +163,9 @@ footer{
 */
 /* Welcome  */
 
+/* Admin panel */
+
+.add-new-record{
+    float: right;
+    margin: 25px;
+}

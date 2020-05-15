@@ -1,6 +1,7 @@
 package services.springdatajpa;
 
 import dto.RestaurantTableDto;
+import javassist.NotFoundException;
 import javassist.tools.rmi.ObjectNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import model.RestaurantTable;
@@ -49,8 +50,16 @@ public class RestaurantTableServiceImpl implements RestaurantTableService{
     }
 
     @Override
-    public RestaurantTable findById(Long id) {
-        return restaurantTableRepository.findById(id).orElse(null);
+    public RestaurantTable findById(Long id) throws ObjectNotFoundException {
+
+        Optional<RestaurantTable> tableOptional = restaurantTableRepository.findById(id);
+
+        if (!tableOptional.isPresent()) {
+            throw new ObjectNotFoundException("Table Not Found. For Id value " + id.toString());
+        }
+
+        return tableOptional.get();
+
     }
 
     @Override
