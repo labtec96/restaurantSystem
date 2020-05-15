@@ -19,7 +19,9 @@
     <a href="/admin/reservation">Rezerwacje</a>
     <a href="/admin/menu">Menu</a>
     <a href="/admin/worker">Pracownicy</a>
+    <a th:if="${#request.isUserInRole('ADMIN')}" href="/admin/about">O nas</a>
 </div>
+
 <main class="full-height">
     <div class="full-height" id="main">
         <div id="openMenu" onclick="openNav()">☰</div>

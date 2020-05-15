@@ -25,9 +25,8 @@
         <div class="full-height bg-contrast-variant-1">
             <div id="openMenu" onclick="openNav()">☰</div>
                 <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
-                    <form id="formLogin" th:action="@{/login}" method="POST" class="justify-content-center">
+                    <form id="formLogin" th:action="@{/login}" method="POST" class="justify-content-center ">
                         <fieldset>
-                            <h1>Zaloguj się</h1>
                             <div class="alert alert-danger" th:if="${param.error != null}"
                                  th:text="${error}">error
                             </div>
@@ -40,12 +39,12 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="email" name="email" id="email" class="form-control input-lg"
-                                       placeholder="email" required="true" autofocus="true"/>
+                                <input type="email" name="email" id="email" class="form-control mb-4"
+                                       placeholder="E-mail" required="true" autofocus="true"/>
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" id="password" class="form-control input-lg"
-                                       placeholder="Password" required="true"/>
+                                <input type="password" name="password" id="password" class="form-control mb-4"
+                                       placeholder="Hasło" required="true"/>
                             </div>
 
                             <div class="row">
