@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <!-- this is header-css -->
+    <script type="text/javascript"  src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="../webjars/bootstrap/4.4.1-1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"
+          href="../css/main.css" />
+    <script src="../js/main.js"></script>
+</head>
+<body>
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="/admin/report">Raporty</a>
+    <a href="/admin/table">Stoliki</a>
+    <a href="/admin/reservation">Rezerwacje</a>
+    <a href="/admin/menu">Menu</a>
+    <a href="/admin/worker">Pracownicy</a>
+    <a th:if="${#request.isUserInRole('ADMIN')}" href="/admin/about">O nas</a>
+</div>
+<main class="full-height">
+    <div class="full-height" id="main">
+        <div id="openMenu" onclick="openNav()">☰</div>
+            <div class="table-responsive" th:if="${not #lists.isEmpty(tables)}">
+                <table class="table table-hover">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>ID</th>
+                        <th >Numer</th>
+                        <th>Piętro</th>
+                        <th>Maksymalna liczba osób</th>
+                        <th>Edytuj</th>
+                        <th>Usuń</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="table : ${tables}">
+                        <td th:text="${table.id}">334</td>
+                        <td th:text="${table.number}">3</td>
+                        <td th:text="${table.floor}">3</td>
+                        <td th:text="${table.maxNumberOfPeople}">3</td>
+                        <td> <a th:href="@{'/admin/table/' + ${table.id}}" class="btn btn-warning">Edytuj</a></td>
+                        <td><a href="#" th:href="@{'/admin/table/' + ${table.id} + '/delete'}">Delete</a></td>
+                    </tr>
+                </table>
+            </div>
+        <!-- Modal -->
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+           <form method="post" th:action="@{/admin/table/update}">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edytuj Stolik</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label class="col-form-label">Id:</label>
+                            <input type="text" class="form-control" id="IdEdit" readonly="readonly" required="required" name="id">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label">Numer stolika:</label>
+                            <input type="number" class="form-control" id="numberEdit" required="required" name="number">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label">Piętro sali:</label>
+                            <input type="number" class="form-control" id="floorEdit" required="required" name="floor">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label">Maksymalna liczba osób:</label>
+                            <input type="number" class="form-control" id="maxNumberOfPeopleEdit" required="required" name="maxNumberOfPeople">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                        <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+                    </div>
+                </div>
+            </div>
+           </form>
+        </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

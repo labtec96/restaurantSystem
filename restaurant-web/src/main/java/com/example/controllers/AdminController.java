@@ -22,11 +22,6 @@ public class AdminController {
         return "report";
     }
 
-    @GetMapping("/admin/table")
-    public String table(Model model) {
-        return "table";
-    }
-
     @GetMapping("/admin/worker")
     public String worker(Model model) {
         return "worker";

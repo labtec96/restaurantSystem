@@ -1,5 +1,7 @@
 package services;
 
+import dto.RestaurantTableDto;
+import javassist.tools.rmi.ObjectNotFoundException;
 import model.RestaurantTable;
 
 /**
@@ -7,4 +9,5 @@ import model.RestaurantTable;
  */
 public interface RestaurantTableService extends CrudService<RestaurantTable,Long>{
 
+    RestaurantTable update(RestaurantTableDto restaurantTableDto) throws ObjectNotFoundException;
 }

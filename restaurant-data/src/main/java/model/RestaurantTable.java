@@ -18,6 +18,5 @@ import javax.persistence.Table;
 public class RestaurantTable extends BaseEntity{
     private String number;
     private String floor;
-    private boolean vip;
     private int maxNumberOfPeople;
 }
