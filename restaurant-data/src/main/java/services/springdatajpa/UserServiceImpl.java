@@ -1,15 +1,13 @@
 package services.springdatajpa;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
 import dto.AddresDto;
 import dto.UserDto;
 import error.UserAlreadyExistException;
+import javassist.tools.rmi.ObjectNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import model.Address;
 import model.Role;
@@ -117,8 +115,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
-        return userRepository.findById(id).orElse(null);
+    public User findById(Long id) throws ObjectNotFoundException {
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if (!optionalUser.isPresent()) {
+            throw new ObjectNotFoundException("User Not Found. For Id value " + id.toString());
+        }
+
+        return optionalUser.get();
     }
 
     @Override
