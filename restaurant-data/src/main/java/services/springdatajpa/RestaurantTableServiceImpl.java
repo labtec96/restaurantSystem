@@ -31,14 +31,6 @@ public class RestaurantTableServiceImpl implements RestaurantTableService{
     private RestaurantTableRepository restaurantTableRepository;
 
     @Override
-    public Set<RestaurantTable> findAll() {
-        Set<RestaurantTable> tables = new HashSet<>();
-        restaurantTableRepository.findAll().forEach(tables::add);
-        return tables;
-    }
-
-
-    @Override
     public  RestaurantTable newTable(RestaurantTableDto restaurantTableDto){
         log.info("Create new Table");
         RestaurantTable restaurantTable = new RestaurantTable();
@@ -65,6 +57,13 @@ public class RestaurantTableServiceImpl implements RestaurantTableService{
             restaurantTable.setNumber(restaurantTableDto.getNumber());
             return restaurantTableRepository.save(restaurantTable);
         }
+    }
+
+    @Override
+    public Set<RestaurantTable> findAll() {
+        Set<RestaurantTable> tables = new HashSet<>();
+        restaurantTableRepository.findAll().forEach(tables::add);
+        return tables;
     }
 
     @Override

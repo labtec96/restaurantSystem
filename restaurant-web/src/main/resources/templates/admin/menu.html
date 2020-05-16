@@ -25,7 +25,130 @@
 <main class="full-height">
     <div class="full-height" id="main">
         <div id="openMenu" onclick="openNav()">☰</div>
+        <button type="button" class="btn btn-primary add-new-record" data-toggle="modal" data-target="#addModal">Dodaj nową pozycję do menu</button>
+        <div class="table-responsive" th:if="${not #lists.isEmpty(meals)}">
+            <table class="table table-hover">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>ID</th>
+                    <th>Nazwa</th>
+                    <th>Opis</th>
+                    <th>Gramatura</th>
+                    <th>Cena</th>
+                    <th>Edytuj</th>
+                    <th>Usuń</th>
+                </tr>
+                </thead>
+                <tr th:each="meal : ${meals}">
+                    <td th:text="${meal.id}">334</td>
+                    <td th:text="${meal.name}">paczek</td>
+                    <td th:text="${meal.description}">Opis</td>
+                    <td th:text="${meal.weight}">200</td>
+                    <td th:text="${meal.price}">200</td>
+                    <td><a th:href="@{'/admin/meal/' + ${meal.id}}" class="btn btn-warning">Edytuj</a></td>
+                    <td><a href="#" th:href="@{'/admin/meal/' + ${meal.id} + '/delete'}">Delete</a></td>
+                </tr>
+            </table>
+        </div>
+        <!-- Modal For Edit-->
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <form method="post" th:action="@{/admin/meal/update}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edytuj potrawę</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
 
+                            <div class="form-group">
+                                <label class="col-form-label">Id:</label>
+                                <input type="text" class="form-control" id="IdEdit" readonly="readonly"
+                                       required="required" name="id">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Nazwa:</label>
+                                <input type="text" class="form-control" id="nameEdit" required="required"
+                                       name="name">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Opis:</label>
+                                <input type="text" class="form-control" id="descriptionEdit" name="description">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Waga:</label>
+                                <input type="number" class="form-control" id="weightEdit" required="required"
+                                       name="weight">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Cena:</label>
+                                <input type="number" class="form-control" id="priceEdit" required="required"
+                                       name="price">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                            <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Modal For Add-->
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <form method="post" th:action="@{/admin/meal/new}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ModalLabel">Dodaj potrawę</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label class="col-form-label">Nazwa:</label>
+                                <input type="text" class="form-control" id="nameAdd" required="required"
+                                       name="name">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Opis:</label>
+                                <input type="text" class="form-control" id="descriptionAdd" name="description">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Waga:</label>
+                                <input type="number" class="form-control" id="weightAdd" required="required"
+                                       name="weight">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Cena:</label>
+                                <input type="number" class="form-control" id="priceAdd" required="required"
+                                       name="price">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                            <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
     </div>
 </main>
 </body>
