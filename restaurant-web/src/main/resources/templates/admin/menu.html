@@ -45,7 +45,7 @@
                     <td th:text="${meal.description}">Opis</td>
                     <td th:text="${meal.weight}">200</td>
                     <td th:text="${meal.price}">200</td>
-                    <td><a th:href="@{'/admin/meal/' + ${meal.id}}" class="btn btn-warning">Edytuj</a></td>
+                    <td><button th:href="@{'/admin/meal/' + ${meal.id}}" class="btn btn-warning edit-meal">Edytuj</button></td>
                     <td><a href="#" th:href="@{'/admin/meal/' + ${meal.id} + '/delete'}">Delete</a></td>
                 </tr>
             </table>
@@ -83,7 +83,7 @@
 
                             <div class="form-group">
                                 <label class="col-form-label">Waga:</label>
-                                <input type="number" class="form-control" id="weightEdit" required="required"
+                                <input type="number" class="form-control" id="weightEdit"
                                        name="weight">
                             </div>
 
@@ -129,7 +129,7 @@
 
                             <div class="form-group">
                                 <label class="col-form-label">Waga:</label>
-                                <input type="number" class="form-control" id="weightAdd" required="required"
+                                <input type="number" class="form-control" id="weightAdd"
                                        name="weight">
                             </div>
 

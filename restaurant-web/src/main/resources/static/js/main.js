@@ -13,7 +13,7 @@ function closeNav() {
 
 $('document').ready(function () {
 
-    $('.table .btn').on('click',function (event) {
+    $('.table .edit-table').on('click',function (event) {
         event.preventDefault();
 
         var href = $(this).attr('href')
@@ -23,7 +23,26 @@ $('document').ready(function () {
             $('#numberEdit').val(table.number)
             $('#floorEdit').val(table.floor)
             $('#maxNumberOfPeopleEdit').val(table.maxNumberOfPeople)
-            $('#vipEdit').val(table.vip)
+        })
+
+        $('#editModal').modal();
+    });
+});
+
+
+$('document').ready(function () {
+
+    $('.table .edit-meal').on('click',function (event) {
+        event.preventDefault();
+
+        var href = $(this).attr('href')
+
+        $.get(href, function (meal,status) {
+            $('#IdEdit').val(meal.id)
+            $('#nameEdit').val(meal.name)
+            $('#descriptionEdit').val(meal.description)
+            $('#weightEdit').val(meal.weight)
+            $('#priceEdit').val(meal.price)
 
         })
 

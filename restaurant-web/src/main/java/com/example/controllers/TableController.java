@@ -40,9 +40,7 @@ public class TableController {
         try {
             return restaurantTableService.findById(Long.valueOf(id));
         }catch (ObjectNotFoundException ex){
-            //Todo
             return null;
-            //esultTable.rejectValue("errors", null, uaeEx.getMessage());
         }
     }
 
@@ -68,7 +66,7 @@ public class TableController {
 
     @GetMapping("/admin/table/{id}/delete")
     public String deleteTable(@PathVariable String id, Model model) {
-        log.info("Get Delete Table: Deleting ingredient id " + id);
+        log.info("Get Delete Table: Deleting table id " + id);
         restaurantTableService.deleteById(Long.valueOf(id));
         return "redirect:/admin/table";
     }

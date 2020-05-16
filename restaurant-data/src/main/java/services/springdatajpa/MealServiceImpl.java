@@ -1,7 +1,7 @@
 package services.springdatajpa;
 
 import dto.MealDto;
-import javassist.tools.rmi.ObjectNotFoundException;
+import error.ObjectNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import model.Meal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +34,25 @@ public class MealServiceImpl implements MealService {
         meal.setPrice(mealDto.getPrice());
         meal.setWeight(mealDto.getWeight());
         return this.save(meal);
+    }
+
+    @Override
+    public Meal update(MealDto mealDto) {
+
+        Optional<Meal> mealOptional = mealRepository.findById(mealDto.getId());
+        log.info("Update meal");
+        if(!mealOptional.isPresent()){
+            log.error("Table not found for id: " + mealDto.getId());
+            throw new ObjectNotFoundException("Nie znaleziono Posilku z podanym id: " + mealDto.getId());
+        } else {
+            Meal meal = mealOptional.get();
+
+            meal.setName(mealDto.getName());
+            meal.setDescription(mealDto.getDescription());
+            meal.setWeight(mealDto.getWeight());
+            meal.setPrice(mealDto.getPrice());
+            return this.save(meal);
+        }
     }
 
     @Override

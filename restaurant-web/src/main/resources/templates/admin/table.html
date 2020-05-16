@@ -42,7 +42,7 @@
                     <td th:text="${table.number}">3</td>
                     <td th:text="${table.floor}">3</td>
                     <td th:text="${table.maxNumberOfPeople}">3</td>
-                    <td><a th:href="@{'/admin/table/' + ${table.id}}" class="btn btn-warning">Edytuj</a></td>
+                    <td><button th:href="@{'/admin/table/' + ${table.id}}" class="btn btn-warning edit-table">Edytuj</button></td>
                     <td><a href="#" th:href="@{'/admin/table/' + ${table.id} + '/delete'}">Delete</a></td>
                 </tr>
             </table>

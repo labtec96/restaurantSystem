@@ -14,6 +14,9 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 public class MealDto {
+
+    private Long id;
+
     @NotNull
     @NotEmpty
     private String name;
