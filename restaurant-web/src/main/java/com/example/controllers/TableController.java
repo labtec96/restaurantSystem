@@ -37,7 +37,20 @@ public class TableController {
     @ResponseBody
     public RestaurantTable getTable(@PathVariable String id, Model model) {
         log.info("Get request /admin/table/{id}");
-        return restaurantTableService.findById(Long.valueOf(id));
+        try {
+            return restaurantTableService.findById(Long.valueOf(id));
+        }catch (ObjectNotFoundException ex){
+            //Todo
+            return null;
+            //esultTable.rejectValue("errors", null, uaeEx.getMessage());
+        }
+    }
+
+    @PostMapping("/admin/table/new")
+    public String newTable(Model model, @ModelAttribute("table") @Valid RestaurantTableDto restaurantTableDto, BindingResult resultTable) {
+        log.info("Post request /admin/table/new:");
+        restaurantTableService.newTable(restaurantTableDto);
+        return "redirect:/admin/table";
     }
 
     @PostMapping("/admin/table/update")

@@ -1,15 +1,21 @@
 package services.springdatajpa;
 
+import dto.AddresDto;
 import dto.RestaurantTableDto;
+import dto.UserDto;
+import error.UserAlreadyExistException;
 import javassist.NotFoundException;
 import javassist.tools.rmi.ObjectNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import model.Address;
 import model.RestaurantTable;
+import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repositories.RestaurantTableRepository;
 import services.RestaurantTableService;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -31,6 +37,18 @@ public class RestaurantTableServiceImpl implements RestaurantTableService{
         return tables;
     }
 
+
+    @Override
+    public  RestaurantTable newTable(RestaurantTableDto restaurantTableDto){
+        log.info("Create new Table");
+        RestaurantTable restaurantTable = new RestaurantTable();
+        restaurantTable.setNumber(restaurantTableDto.getNumber());
+        restaurantTable.setMaxNumberOfPeople(restaurantTableDto.getMaxNumberOfPeople());
+        restaurantTable.setFloor(restaurantTableDto.getFloor());
+        return restaurantTableRepository.save(restaurantTable);
+    }
+
+    @Override
     public RestaurantTable update(RestaurantTableDto restaurantTableDto) throws ObjectNotFoundException {
 
         Optional<RestaurantTable> restaurantTableOptional = restaurantTableRepository.findById(restaurantTableDto.getId());

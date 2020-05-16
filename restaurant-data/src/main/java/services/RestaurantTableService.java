@@ -10,4 +10,6 @@ import model.RestaurantTable;
 public interface RestaurantTableService extends CrudService<RestaurantTable,Long>{
 
     RestaurantTable update(RestaurantTableDto restaurantTableDto) throws ObjectNotFoundException;
+
+    RestaurantTable newTable(RestaurantTableDto restaurantTableDto);
 }
