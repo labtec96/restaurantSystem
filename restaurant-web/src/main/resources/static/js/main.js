@@ -49,3 +49,35 @@ $('document').ready(function () {
         $('#editModal').modal();
     });
 });
+
+$(function () {
+
+    $('.datepicker').datepicker({
+        clearBtn: true,
+        format: "dd/mm/yyyy"
+    });
+
+    $('.timepicker').timepicker({
+        timeFormat: 'HH:mm',
+        interval: 60,
+        minTime: '10',
+        maxTime: '18',
+        defaultTime: '11',
+        startTime: '10:00',
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true
+    });
+
+    // FOR DEMO PURPOSE
+    $('#reservationDate').on('change', function () {
+        console.log("Chuj")
+        var pickedDate = $('input').val();
+        $('#pickedDate').html(pickedDate);
+    });
+
+});
+
+
+
+

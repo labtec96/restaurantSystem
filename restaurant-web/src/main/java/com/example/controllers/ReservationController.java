@@ -12,6 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ReservationController {
 
+    @GetMapping("/reservation")
+    public String getReservation(Model model) {
+        log.info("Get request /reservation");
+        //model.addAttribute("tables", restaurantTableService.findAll());
+        return "reservation";
+    }
+
     @GetMapping("/admin/reservation")
     public String reservation(Model model) {
         log.info("Get request /admin/reservation");

@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by ch on 2020-05-05
@@ -35,6 +37,10 @@ public class User extends Person{
 
     @Column(name = "enabled")
     private boolean enabled;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+    private Set<Reservation> reservations = new HashSet<>();
+
 
     public User() {
         super();
