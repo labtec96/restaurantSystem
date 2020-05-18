@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  * Created by ch on 2020-05-16
@@ -20,12 +21,21 @@ public class Reservation extends BaseEntity{
     @Column(name = "date")
     private LocalDate date;
 
-    @Column(name = "description")
-    private String description;
+    private LocalTime startHour;
+
+    private LocalTime endHour;
+
+    @Column(name = "persons")
+    private int persons;
+
+
+    @Column(name = "status")
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
 
     @ManyToOne
     @JoinColumn(name = "restaurantTable_id")

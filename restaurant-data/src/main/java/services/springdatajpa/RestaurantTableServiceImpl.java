@@ -1,21 +1,16 @@
 package services.springdatajpa;
 
-import dto.AddresDto;
 import dto.RestaurantTableDto;
-import dto.UserDto;
-import error.UserAlreadyExistException;
-import javassist.NotFoundException;
 import javassist.tools.rmi.ObjectNotFoundException;
 import lombok.extern.slf4j.Slf4j;
-import model.Address;
 import model.RestaurantTable;
-import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repositories.RestaurantTableRepository;
 import services.RestaurantTableService;
 
-import java.util.Arrays;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -57,6 +52,19 @@ public class RestaurantTableServiceImpl implements RestaurantTableService{
             restaurantTable.setNumber(restaurantTableDto.getNumber());
             return restaurantTableRepository.save(restaurantTable);
         }
+    }
+
+    @Override
+    public Optional<RestaurantTable> findFreeTable(LocalDate date, LocalTime startHour, LocalTime endHour, int persons) {
+        log.info("Looking for free table");
+
+
+        return restaurantTableRepository.findAll()
+                .stream()
+                .filter(table -> table.getMaxNumberOfPeople()>=persons)
+                .filter(table -> table.isFree(date, startHour, endHour))
+                .findFirst();
+
     }
 
     @Override

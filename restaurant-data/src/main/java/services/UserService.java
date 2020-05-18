@@ -23,4 +23,5 @@ public interface UserService extends CrudService <User,Long> {
     VerificationToken getVerificationToken(String VerificationToken);
 
     User findByUsername(String username);
+    User findByEmail(String email);
 }

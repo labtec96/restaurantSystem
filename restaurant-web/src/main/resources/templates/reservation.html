@@ -36,22 +36,25 @@
 
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6 mx-auto mt-15">
+                    <div class="col-md-6 mx-auto mt-5">
                         <div class="py-4 text-center"><i class="fa fa-calendar fa-5x"></i></div>
-
-                        <div class="form-group mb-4 margin">
-                            <div class="datepicker date input-group p-0 shadow-sm">
-                                <input type="text" placeholder="Wybierz dzień" class="form-control py-4 px-4" id="reservationDate">
-                                <div class="input-group-append"><span class="input-group-text px-4"><i class="fa fa-clock-o"></i></span></div>
+                        <form th:action="@{/reservation/book}" method="POST">
+                            <div class="form-group mb-4 margin">
+                                <div class="datepicker date input-group p-0 shadow-sm">
+                                    <input type="text" name="date" required="required" block="readonly"  placeholder="Wybierz dzień" class="form-control py-4 px-4" id="reservationDate">
+                                    <div class="input-group-append"><span class="input-group-text px-4"><i class="fa fa-clock-o"></i></span></div>
+                                </div>
+                                <input type="text" required="required" readonly="readonly" name="startHour" id="pickedTime" class="form-control py-4 px-4 timepicker mb-4">
+                                <input type="text" required="required" readonly="readonly" name="endHour"  class="form-control py-4 px-4 timepicker mb-4">
+                                <input type="number" name="persons" placeholder="Liczba osób" max="10" required="required" id="persons" class="form-control py-4 px-4">
                             </div>
-                            <input type="text" id="pickedTime" class="form-control py-4 px-4 timepicker">
-                        </div>
 
-                        <div class="text-center">
-                            <h3 class="font-italic font-weight-bold text-dark">Wybrany dzień</h3>
-                            <h4 id="pickedDate" class="font-weight-bold text-uppercase mb-3">Nie wybrano jeszcze</h4>
-                            <a href="/reservation/book/" class="btn btn-primary btn-sm px-4 rounded-pill text-uppercase font-weight-bold shadow-sm">Potwierdź rezerwację</a>
-                        </div>
+                            <div class="text-center">
+                                <h3 class="font-italic font-weight-bold text-dark">Wybrany dzień</h3>
+                                <h4 id="pickedDate" class="font-weight-bold text-uppercase mb-3">Nie wybrano jeszcze</h4>
+                                <button type="submit" class="btn btn-primary btn-sm px-4 rounded-pill text-uppercase font-weight-bold shadow-sm">Potwierdź rezerwację</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

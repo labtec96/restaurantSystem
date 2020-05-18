@@ -60,19 +60,19 @@ $(function () {
     $('.timepicker').timepicker({
         timeFormat: 'HH:mm',
         interval: 60,
-        minTime: '10',
-        maxTime: '18',
-        defaultTime: '11',
-        startTime: '10:00',
+        minTime: '8',
+        maxTime: '23',
+        defaultTime: '8',
+        startTime: '8:00',
         dynamic: false,
         dropdown: true,
         scrollbar: true
     });
 
+
     // FOR DEMO PURPOSE
     $('#reservationDate').on('change', function () {
-        console.log("Chuj")
-        var pickedDate = $('input').val();
+        var pickedDate = $('#reservationDate').val();
         $('#pickedDate').html(pickedDate);
     });
 

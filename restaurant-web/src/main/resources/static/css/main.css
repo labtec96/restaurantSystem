@@ -24,8 +24,12 @@ footer{
     margin-bottom: 5px;
 }
 
-.mt-15{
-    margin-top: 15%;
+.mt-5{
+    margin-top: 5%;
+}
+
+.form-control[readonly]{
+    background: white;
 }
 /* Navigation /////////////////////////////////
 
