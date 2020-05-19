@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.SecondaryTable;
 
 /**
@@ -14,7 +15,11 @@ import javax.persistence.SecondaryTable;
 @Setter
 @Getter
 @NoArgsConstructor
-@Entity
+@MappedSuperclass
 public class Worker extends User{
+
     private int Salary;
+
+    private String accountNumber;
+
 }

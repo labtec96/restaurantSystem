@@ -1,6 +1,7 @@
 package com.example.controllers;
 
 import dto.ReservationDto;
+import javassist.tools.rmi.ObjectNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import model.User;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import services.ReservationService;
 import services.UserService;
@@ -53,7 +55,36 @@ public class ReservationController {
     @GetMapping("/admin/reservation")
     public String reservation(Model model) {
         log.info("Get request /admin/reservation");
-        //model.addAttribute("tables", restaurantTableService.findAll());
+        model.addAttribute("reservationsToConfirm", reservationService.findAllToConfirm());
+        model.addAttribute("reservationsConfirmed", reservationService.findAllConfirmedForToday());
         return "admin/reservation";
     }
+
+
+    @GetMapping("/admin/reservation/{id}/confirm")
+    public String confirmReservation(@PathVariable String id, Model model) {
+        log.info("Get Confirm reservation for reservation id " + id);
+
+        try {
+            reservationService.confirmById(Long.valueOf(id));
+        }catch (ObjectNotFoundException re){
+            model.addAttribute("error", re.getMessage());
+        }
+
+        return "redirect:/admin/reservation";
+    }
+
+    @GetMapping("/admin/reservation/{id}/reject")
+    public String rejectReservation(@PathVariable String id, Model model) {
+        log.info("Get Reject reservation for reservation id " + id);
+        try {
+            reservationService.rejectById(Long.valueOf(id));
+        }catch (ObjectNotFoundException re){
+            model.addAttribute("error", re.getMessage());
+        }
+        return "redirect:/admin/reservation";
+    }
+
+
+
 }

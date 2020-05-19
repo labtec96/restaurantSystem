@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <!-- this is header-css -->
-    <script type="text/javascript"  src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css"
           href="../webjars/bootstrap/4.4.1-1/css/bootstrap.min.css"/>
     <link rel="stylesheet" th:href="@{/css/main.css}"
-          href="../css/main.css" />
+          href="../css/main.css"/>
     <script src="../js/main.js"></script>
 </head>
 <body>
@@ -21,11 +21,66 @@
     <a href="/admin/worker">Pracownicy</a>
     <a th:if="${#request.isUserInRole('ADMIN')}" href="/admin/about">O nas</a>
 </div>
-
 <main class="full-height">
     <div class="full-height" id="main">
         <div id="openMenu" onclick="openNav()">☰</div>
-
+        <div class="table-responsive">
+            <h3 class="font-weight-bold text-dark d-flex justify-content-center mb-4">Rezerwacje do akceptacji</h3>
+            <table class="table table-hover">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>ID Rezerwacji</th>
+                    <th>Numer Stolika</th>
+                    <th>Data</th>
+                    <th>Godzina rozpoczęcia</th>
+                    <th>Godzina zakończenia</th>
+                    <th>Liczba osób</th>
+                    <th>Status</th>
+                    <th>Zatwierdź</th>
+                    <th>Odrzuć</th>
+                </tr>
+                </thead>
+                <tr th:each="reservation : ${reservationsToConfirm}">
+                    <td th:text="${reservation.id}">334</td>
+                    <td th:text="${reservation.restaurantTable.number}">3</td>
+                    <td th:text="${reservation.date}">3</td>
+                    <td th:text="${reservation.startHour}">3</td>
+                    <td th:text="${reservation.endHour}">3</td>
+                    <td th:text="${reservation.persons}">3</td>
+                    <td th:text="${reservation.status}">3</td>
+                    <td><a th:href="@{'/admin/reservation/' + ${reservation.id} + '/confirm'}" class="btn btn-warning ">Potwierdź</a></td>
+                    <td><a th:href="@{'/admin/reservation/' + ${reservation.id} + '/reject'}" class="btn btn-warning ">Odrzuć</a></td>
+                </tr>
+            </table>
+        </div>
+        <div class="table-responsive">
+            <h3 class="font-weight-bold text-dark d-flex justify-content-center mb-4">Rezerwacje na dzień dzisiejszy</h3>
+            <table class="table table-hover">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>ID Rezerwacji</th>
+                    <th>Numer Stolika</th>
+                    <th>Data</th>
+                    <th>Godzina rozpoczęcia</th>
+                    <th>Godzina zakończenia</th>
+                    <th>Liczba osób</th>
+                    <th>Status</th>
+                    <th>Odrzuć</th>
+                </tr>
+                </thead>
+                <tr th:each="reservation : ${reservationsConfirmed}">
+                    <td th:text="${reservation.id}">334</td>
+                    <td th:text="${reservation.restaurantTable.number}">3</td>
+                    <td th:text="${reservation.date}">3</td>
+                    <td th:text="${reservation.startHour}">3</td>
+                    <td th:text="${reservation.endHour}">3</td>
+                    <td th:text="${reservation.persons}">3</td>
+                    <td th:text="${reservation.status}">3</td>
+                    <td><a href="#" th:href="@{'/admin/reservation/' + ${reservation.id} + '/reject'}" class="btn btn-warning">Odrzuć</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
     </div>
 </main>
 </body>

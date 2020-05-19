@@ -5,6 +5,7 @@ import javassist.tools.rmi.ObjectNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import model.Reservation;
 import model.RestaurantTable;
+import model.Status;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,10 @@ import util.Utils;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by ch on 2020-05-16
@@ -62,7 +63,7 @@ public class ReservationServiceImpl implements ReservationService {
                 reservation.setPersons(reservationDto.getPersons());
                 reservation.setRestaurantTable(restaurantTable);
                 reservation.setUser(user);
-                reservation.setStatus("Potwierdzono");
+                reservation.setStatus(Status.WERYFIKOWANA);
 
                 restaurantTableService.save(restaurantTable);
                 userService.save(user);
@@ -77,6 +78,46 @@ public class ReservationServiceImpl implements ReservationService {
             log.error("Date bad format");
             throw new RuntimeException("Bad date format");
         }
+    }
+
+    @Override
+    public Set<Reservation> findAllConfirmed() {
+        return this.findAll().stream()
+                .filter(reservation -> reservation.getStatus().equals(Status.POTWIERDZONA))
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<Reservation> findAllToConfirm() {
+        return this.findAll().stream()
+                .filter(reservation -> reservation.getStatus().equals(Status.WERYFIKOWANA))
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<Reservation> findAllConfirmedForToday() {
+        LocalDate today = LocalDate.now();
+        return this.findAll().stream()
+                .filter(reservation -> reservation.getStatus().equals(Status.POTWIERDZONA))
+                .filter(reservation -> reservation.getDate().equals(today))
+                .collect(Collectors.toSet());
+    }
+
+
+    @Override
+    public void confirmById(Long valueOf) throws ObjectNotFoundException {
+        Reservation reservation = this.findById(valueOf);
+
+        reservation.setStatus(Status.POTWIERDZONA);
+        this.save(reservation);
+    }
+
+    @Override
+    public void rejectById(Long valueOf) throws ObjectNotFoundException {
+        Reservation reservation = this.findById(valueOf);
+
+        reservation.setStatus(Status.ODRZUCONA);
+        this.save(reservation);
     }
 
     @Override

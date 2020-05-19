@@ -28,9 +28,8 @@ public class Reservation extends BaseEntity{
     @Column(name = "persons")
     private int persons;
 
-
-    @Column(name = "status")
-    private String status;
+    @Enumerated(value = EnumType.STRING)
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
