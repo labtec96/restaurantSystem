@@ -1,6 +1,7 @@
 INSERT INTO role (name) VALUES ('ROLE_USER');
 INSERT INTO role (name) VALUES ('ROLE_MANAGER');
 INSERT INTO role (name) VALUES ('ROLE_WAITER');
+INSERT INTO role (name) VALUES ('ROLE_COOK');
 
 INSERT INTO user (first_name,last_name,email,password,enabled) VALUES ('ch','dd','op@op.pp','ch',false);
 

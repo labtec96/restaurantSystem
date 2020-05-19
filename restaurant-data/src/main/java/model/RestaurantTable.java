@@ -1,5 +1,7 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,6 +29,7 @@ public class RestaurantTable extends BaseEntity {
     private int maxNumberOfPeople;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurantTable")
+    @JsonBackReference
     private Set<Reservation> reservations = new HashSet<>();
 
     public boolean isFree(LocalDate date, LocalTime startHour, LocalTime endHour) {

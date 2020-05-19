@@ -1,12 +1,9 @@
 package com.example.controllers;
 
-import dto.AddresDto;
-import dto.UserDto;
-import dto.WaiterDto;
+import dto.CookDto;
 import error.UserAlreadyExistException;
 import lombok.extern.slf4j.Slf4j;
-import model.User;
-import model.Waiter;
+import model.Cook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
@@ -15,7 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import registration.OnRegistrationCompleteEvent;
-import services.WaiterService;
+import services.CookService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -25,28 +22,28 @@ import javax.validation.Valid;
  */
 @Slf4j
 @Controller
-public class WaiterController {
+public class CookController {
 
     @Autowired
-    WaiterService waiterService;
+    CookService cookService;
 
     @Autowired
     ApplicationEventPublisher eventPublisher;
 
-    @PostMapping("/admin/waiter/registration")
-    public String registration(Model model, @ModelAttribute("waiter") @Valid WaiterDto waiterDto, BindingResult resultWaiter, HttpServletRequest request){
+    @PostMapping("/admin/cook/registration")
+    public String registration(Model model, @ModelAttribute("cook") @Valid CookDto cookDto, BindingResult resultCook, HttpServletRequest request){
         try {
-            log.info("Controller Starting to register new waiter");
-            Waiter registered = waiterService.registerNewWaiterAccount(waiterDto);
+            log.info("Controller Starting to register new cook");
+            Cook registered = cookService.registerNewCookAccount(cookDto);
             String appUrl = request.getContextPath();
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered,
                     request.getLocale(), appUrl));
         } catch (UserAlreadyExistException uaeEx) {
-            resultWaiter.rejectValue("email", null , "Istnieje już użytkownik z takim emailem");
+            resultCook.rejectValue("email", null , "Istnieje już użytkownik z takim emailem");
         }
 
-        if (resultWaiter.hasErrors()){
-            resultWaiter.getAllErrors().forEach(objectError -> {
+        if (resultCook.hasErrors()){
+            resultCook.getAllErrors().forEach(objectError -> {
                 log.error(objectError.toString());
                 log.error(objectError.getObjectName());
             });

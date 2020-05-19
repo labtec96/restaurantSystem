@@ -1,11 +1,10 @@
 package com.example.controllers;
 
-import dto.AddresDto;
-import dto.UserDto;
+import dto.ManagerDto;
 import dto.WaiterDto;
 import error.UserAlreadyExistException;
 import lombok.extern.slf4j.Slf4j;
-import model.User;
+import model.Manager;
 import model.Waiter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -15,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import registration.OnRegistrationCompleteEvent;
+import services.ManagerService;
 import services.WaiterService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,28 +25,27 @@ import javax.validation.Valid;
  */
 @Slf4j
 @Controller
-public class WaiterController {
-
+public class ManagerController {
     @Autowired
-    WaiterService waiterService;
+    ManagerService managerService;
 
     @Autowired
     ApplicationEventPublisher eventPublisher;
 
-    @PostMapping("/admin/waiter/registration")
-    public String registration(Model model, @ModelAttribute("waiter") @Valid WaiterDto waiterDto, BindingResult resultWaiter, HttpServletRequest request){
+    @PostMapping("/admin/manager/registration")
+    public String registration(Model model, @ModelAttribute("manager") @Valid ManagerDto managerDto, BindingResult resultManager, HttpServletRequest request){
         try {
-            log.info("Controller Starting to register new waiter");
-            Waiter registered = waiterService.registerNewWaiterAccount(waiterDto);
+            log.info("Controller Starting to register new manager");
+            Manager registered = managerService.registerNewManagerAccount(managerDto);
             String appUrl = request.getContextPath();
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered,
                     request.getLocale(), appUrl));
         } catch (UserAlreadyExistException uaeEx) {
-            resultWaiter.rejectValue("email", null , "Istnieje już użytkownik z takim emailem");
+            resultManager.rejectValue("email", null , "Istnieje już użytkownik z takim emailem");
         }
 
-        if (resultWaiter.hasErrors()){
-            resultWaiter.getAllErrors().forEach(objectError -> {
+        if (resultManager.hasErrors()){
+            resultManager.getAllErrors().forEach(objectError -> {
                 log.error(objectError.toString());
                 log.error(objectError.getObjectName());
             });

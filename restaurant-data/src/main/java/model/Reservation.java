@@ -1,5 +1,6 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,6 +39,7 @@ public class Reservation extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "restaurantTable_id")
+    @JsonManagedReference
     private RestaurantTable restaurantTable;
 
 }

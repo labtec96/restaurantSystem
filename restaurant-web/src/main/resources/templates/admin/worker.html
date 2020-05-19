@@ -28,6 +28,7 @@
         <button type="button" class="btn btn-primary add-new-record" data-toggle="modal" data-target="#addModalManager">Dodaj nowego kierownika</button>
         <button type="button" class="btn btn-primary add-new-record" data-toggle="modal" data-target="#addModalCook">Dodaj nowego kucharza</button>
         <div class="table-responsive" th:if="${not #lists.isEmpty(managers)}">
+            <h3 class="font-weight-bold text-dark d-flex justify-content-center mb-4">Dostępni kierownicy</h3>
             <table class="table table-hover">
                 <thead class="thead-inverse">
                 <tr>
@@ -51,6 +52,7 @@
         </div>
 
         <div class="table-responsive" th:if="${not #lists.isEmpty(cooks)}">
+            <h3 class="font-weight-bold text-dark d-flex justify-content-center mb-4">Dostępni kucharze</h3>
             <table class="table table-hover">
                 <thead class="thead-inverse">
                 <tr>
@@ -74,6 +76,7 @@
         </div>
 
         <div class="table-responsive" th:if="${not #lists.isEmpty(waiters)}">
+            <h3 class="font-weight-bold text-dark d-flex justify-content-center mb-4">Dostępni kelnerzy</h3>
             <table class="table table-hover">
                 <thead class="thead-inverse">
                 <tr>
@@ -94,7 +97,7 @@
             </table>
         </div>
 
-        <!-- Modal For Add-->
+        <!-- Modal For Add Waiter-->
         <div class="modal fade" id="addModalWaiter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <form method="post" th:action="@{/admin/waiter/registration}">
@@ -146,8 +149,137 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label">Procent napiwków:</label>
-                                <input type="text" class="form-control" id="percentageOfTipsAdd"
+                                <input type="number" class="form-control" id="percentageOfTipsAdd"
                                        name="percentageOfTips">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                            <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- Modal For Add Cook-->
+        <div class="modal fade" id="addModalCook" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <form method="post" th:action="@{/admin/cook/registration}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Dodaj Kucharza</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label class="col-form-label">Imie*:</label>
+                                <input type="text" class="form-control" id="cookNameAdd" required="required"
+                                       name="firstName">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Nazwisko*:</label>
+                                <input type="text" class="form-control" id="cookLastNameAdd" required="required"
+                                       name="lastName">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Email*:</label>
+                                <input type="email" class="form-control" id="cookEmailAdd" required="required"
+                                       name="email">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Hasło*:</label>
+                                <input type="password" class="form-control" id="cookPasswordAdd" required="required"
+                                       name="password">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Powtórz hasło*:</label>
+                                <input type="password" class="form-control" id="cookMatchPasswordAdd" required="required" name="passwordConfirm">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Pensja netto*:</label>
+                                <input type="number" class="form-control" id="cookSalaryAdd" required="required"
+                                       name="salary">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Numer konta*:</label>
+                                <input type="text" class="form-control" id="cookAccountNumberAdd" required="required"
+                                       name="accountNumber">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Numer kuchni:</label>
+                                <input type="number" class="form-control" id="cookNumberOfKitchen"
+                                       name="numberOfKitchen">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                            <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Modal For Add Manager-->
+        <div class="modal fade" id="addModalManager" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <form method="post" th:action="@{/admin/manager/registration}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Dodaj Kierownika</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label class="col-form-label">Imie*:</label>
+                                <input type="text" class="form-control" id="managerNameAdd" required="required"
+                                       name="firstName">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Nazwisko*:</label>
+                                <input type="text" class="form-control" id="managerLastNameAdd" required="required"
+                                       name="lastName">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Email*:</label>
+                                <input type="email" class="form-control" id="managerEmailAdd" required="required"
+                                       name="email">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Hasło*:</label>
+                                <input type="password" class="form-control" id="managerPasswordAdd" required="required"
+                                       name="password">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Powtórz hasło*:</label>
+                                <input type="password" class="form-control" id="managerMatchPasswordAdd" required="required" name="passwordConfirm">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Pensja netto*:</label>
+                                <input type="number" class="form-control" id="managerSalaryAdd" required="required"
+                                       name="salary">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Numer konta*:</label>
+                                <input type="text" class="form-control" id="managerAccountNumberAdd" required="required"
+                                       name="accountNumber">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Numer kuchni:</label>
+                                <input type="number" class="form-control" id="managerNumberOfRestaurantRoom"
+                                       name="numberOfRestaurantRoom">
                             </div>
                         </div>
                         <div class="modal-footer">

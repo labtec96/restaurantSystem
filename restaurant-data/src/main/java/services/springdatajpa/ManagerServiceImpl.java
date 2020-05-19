@@ -1,13 +1,20 @@
 package services.springdatajpa;
 
+import dto.ManagerDto;
+import error.UserAlreadyExistException;
 import javassist.tools.rmi.ObjectNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import model.Manager;
+import model.Waiter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import repositories.ManagerRepository;
+import repositories.RoleRepository;
 import services.ManagerService;
+import services.UserService;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -21,6 +28,15 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Autowired
     ManagerRepository managerRepository;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     @Override
     public Set<Manager> findAll() {
@@ -53,4 +69,23 @@ public class ManagerServiceImpl implements ManagerService {
         managerRepository.deleteById(id);
     }
 
+    @Override
+    public Manager registerNewManagerAccount(ManagerDto managerDto) {
+        log.info("Register new Waiter");
+        if (userService.emailExists(managerDto.getEmail())) {
+            System.out.println("Konto z takim eamilem juz istenieje");
+            throw new UserAlreadyExistException("Istnieje już konto z takim adresem email: " + managerDto.getEmail());
+        }
+        Manager manager = new Manager();
+        manager.setFirstName(managerDto.getFirstName());
+        manager.setLastName(managerDto.getLastName());
+        manager.setPassword(bCryptPasswordEncoder.encode(managerDto.getPassword()));
+        manager.setEmail(managerDto.getEmail());
+        manager.setSalary(managerDto.getSalary());
+        manager.setAccountNumber(managerDto.getAccountNumber());
+        manager.setNumberOfRestaurantRoom(managerDto.getNumberOfRestaurantRoom());
+        manager.setRoles(Arrays.asList(roleRepository.findByName("ROLE_MANAGER")));
+
+        return this.save(manager);
+    }
 }

@@ -24,4 +24,6 @@ public interface UserService extends CrudService <User,Long> {
 
     User findByUsername(String username);
     User findByEmail(String email);
+
+    boolean emailExists(String email);
 }
