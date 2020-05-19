@@ -46,7 +46,7 @@
                     <td th:text="${manager.email}">3</td>
                     <td th:text="${manager.numberOfRestaurantRoom}">3</td>
                     <td><button th:href="@{'/admin/manager/' + ${manager.id}}" class="btn btn-warning edit-manager">Edytuj</button></td>
-                    <td><a href="#" th:href="@{'/admin/manager/' + ${manager.id} + '/delete'}">Usuń pracownika</a></td>
+                    <td><a href="#" th:href="@{'/admin/user/' + ${manager.id} + '/delete'}">Usuń pracownika</a></td>
                 </tr>
             </table>
         </div>
@@ -70,7 +70,7 @@
                     <td th:text="${cook.email}">3</td>
                     <td th:text="${cook.numberOfKitchen}">3</td>
                     <td><button th:href="@{'/admin/cook/' + ${cook.id}}" class="btn btn-warning edit-cook">Edytuj</button></td>
-                    <td><a href="#" th:href="@{'/admin/cook/' + ${cook.id} + '/delete'}">Usuń kucharza</a></td>
+                    <td><a href="#" th:href="@{'/admin/user/' + ${cook.id} + '/delete'}">Usuń kucharza</a></td>
                 </tr>
             </table>
         </div>
@@ -92,7 +92,7 @@
                     <td th:text="${waiter.lastName}">3</td>
                     <td th:text="${waiter.email}">3</td>
                     <td><button th:href="@{'/admin/waiter/' + ${waiter.id}}" class="btn btn-warning edit-waiter">Edytuj</button></td>
-                    <td><a href="#" th:href="@{'/admin/waiter/' + ${waiter.id} + '/delete'}">Usuń pracownika</a></td>
+                    <td><a href="#" th:href="@{'/admin/user/' + ${waiter.id} + '/delete'}">Usuń pracownika</a></td>
                 </tr>
             </table>
         </div>

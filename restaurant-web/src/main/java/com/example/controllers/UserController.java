@@ -85,6 +85,13 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping("/admin/user/{id}/delete")
+    public String deleteTable(@PathVariable String id, Model model) {
+        log.info("Get Delete User: Deleting user id " + id);
+        userService.deleteById(Long.valueOf(id));
+        return "redirect:/admin/worker";
+    }
+
     @GetMapping({"/", "/welcome"})
     public String welcome(Model model) {
         return "welcome";

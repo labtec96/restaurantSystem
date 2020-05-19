@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
+import repositories.VerificationTokenRepository;
 import services.UserService;
 
 import java.util.Calendar;
@@ -24,6 +25,9 @@ public class RegistrationController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    VerificationTokenRepository verificationTokenRepository;
 
     @GetMapping("/registrationConfirm")
     public String confirmRegistration
@@ -49,6 +53,8 @@ public class RegistrationController {
         }
 
         user.setEnabled(true);
+
+        verificationTokenRepository.delete(verificationToken);
         userService.saveRegisteredUser(user);
         return "redirect:/login";
     }
