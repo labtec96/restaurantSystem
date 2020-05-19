@@ -3,17 +3,27 @@ package model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 /**
  * Created by ch on 2020-05-19
  */
 @Setter
 @Getter
-@NoArgsConstructor
 @Entity
-public class Waiter extends Worker{
+@Table(name = "waiter")
+@PrimaryKeyJoinColumn(name = "user")
+public class Waiter extends User{
 
     private String percentageOfTips;
+
+    private int salary;
+
+    private String accountNumber;
+
+    public Waiter(){
+        super();
+    }
 }

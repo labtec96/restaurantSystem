@@ -50,6 +50,13 @@ $('document').ready(function () {
     });
 });
 
+$('document').ready(function () {
+    $('.table .edit-meal').on('click',function (event) {
+        event.preventDefault();
+    });
+});
+
+
 $(function () {
 
     $('.datepicker').datepicker({

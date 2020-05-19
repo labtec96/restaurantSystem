@@ -11,9 +11,16 @@ import javax.persistence.Entity;
  */
 @Setter
 @Getter
-@NoArgsConstructor
 @Entity
-public class Manager extends Worker{
+public class Manager extends User{
 
     private String numberOfRestaurantRoom;
+
+    private int salary;
+
+    private String accountNumber;
+
+    public Manager(){
+        super();
+    }
 }
