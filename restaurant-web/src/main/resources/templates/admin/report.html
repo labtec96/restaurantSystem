@@ -29,17 +29,21 @@
     <a href="/admin/reservation">Rezerwacje</a>
     <a href="/admin/menu">Menu</a>
     <a href="/admin/worker">Pracownicy</a>
-    <a th:if="${#request.isUserInRole('ADMIN')}" href="/admin/about">O nas</a>
+    <form action="/logout" method="POST">
+        <a href="#" onclick="this.parentNode.submit()">Wyloguj</a>
+    </form>
 </div>
 <main class="full-height">
     <div class="full-height" id="main">
         <div id="openMenu" onclick="openNav()">☰</div>
-        <button th:href="@{'/admin/report/reservationPerDay'}" class="btn btn-primary add-new-record char-reservation-per-day">Rezerwacje wględem dni tygodnia</button>
-        <button th:href="@{'/admin/report/reservationPerMonth'}" class="btn btn-primary add-new-record char-reservation-per-day">Rezerwacje względem miesięcy</button>
-        <button th:href="@{'/admin/report/reservationNumberOfPeople'}" class="btn btn-primary add-new-record char-reservation-per-day">Rezerwacje pod względem liczby osób</button>
-        <button th:href="@{'/admin/report/expenditureOnSalaries'}" class="btn btn-primary add-new-record char-reservation-per-day">Wydatki na pensje</button>
-        <button th:href="@{'/admin/report/employees'}" class="btn btn-primary add-new-record char-reservation-per-day">Pracownicy zatrudnieni</button>
-        <div class="container">
+        <div class="btn-group btn-group-lg m-3 d-flex justify-content-center" role="group" aria-label="Basic example">
+            <button th:href="@{'/admin/report/reservationPerDay'}" class="btn mr-2 bt btn-primary char-reservation-per-day">Rezerwacje wględem dni tygodnia</button>
+            <button th:href="@{'/admin/report/reservationPerMonth'}" class="btn mr-2 btn-primary char-reservation-per-month">Rezerwacje względem miesięcy</button>
+            <button th:href="@{'/admin/report/reservationNumberOfPeople'}" class="btn mr-2 btn-primary char-reservation-persons">Rezerwacje pod względem liczby osób</button>
+            <button th:href="@{'/admin/report/expenditureOnSalaries'}" class="btn mr-2 btn-primary char-reservation-expenditure-on-salaries">Wydatki na pensje</button>
+            <button th:href="@{'/admin/report/employees'}" class="btn mr-2 btn-primary char-reservation-workers">Pracownicy zatrudnieni</button>
+        </div>
+            <div class="container">
             <canvas id="bar-chart" width="800" height="450"></canvas>
         </div>
     </div>

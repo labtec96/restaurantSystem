@@ -31,6 +31,10 @@ footer{
 .form-control[readonly]{
     background: white;
 }
+.btn-space {
+    margin-right: 5px;
+}
+
 /* Navigation /////////////////////////////////
 
 /* The side navigation menu */

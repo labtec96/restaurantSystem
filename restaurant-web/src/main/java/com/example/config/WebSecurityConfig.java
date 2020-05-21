@@ -45,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .usernameParameter("email")
                     .defaultSuccessUrl("/homepage.html", false)
                     .permitAll()
-                .and().csrf().ignoringAntMatchers("/h2-console/**")//don't apply CSRF protection to /h2-console
+                .and().csrf().ignoringAntMatchers("/h2-console/**","/login", "/logout")//don't apply CSRF protection to /h2-console
                 .and().headers().frameOptions().sameOrigin()
                 .and()
                 .logout()

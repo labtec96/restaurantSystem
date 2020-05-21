@@ -4,8 +4,10 @@ import lombok.experimental.UtilityClass;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -36,5 +38,13 @@ public class Utils {
             return false;
         }
         return true;
+    }
+
+    public static DayOfWeek getDayOfWeek(LocalDate date){
+        return date.getDayOfWeek();
+    }
+
+    public static Month getMonthOfDate(LocalDate date){
+        return date.getMonth();
     }
 }
