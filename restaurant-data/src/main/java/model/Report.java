@@ -35,4 +35,22 @@ public class Report {
     private long reservationsForNovember;
     private long reservationsForDecember;
 
+    private long onePersonReservation;
+    private long twoPersonReservation;
+    private long threePersonReservation;
+    private long fourPersonReservation;
+    private long fivePersonReservation;
+    private long sixPersonReservation;
+    private long sevenPersonReservation;
+    private long eightPersonReservation;
+    private long ninePersonReservation;
+    private long tenPersonReservation;
+
+    private long cookExpenditureOnSalaries;
+    private long waiterExpenditureOnSalaries;
+    private long managerExpenditureOnSalaries;
+
+    private long cooksHired;
+    private long waiterEsHired;
+    private long managersHired;
 }

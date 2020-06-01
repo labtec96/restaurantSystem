@@ -46,21 +46,21 @@ public class ReportController {
     @GetMapping("/admin/report/reservationNumberOfPeople")
     @ResponseBody
     public Report reservationNumberOfPeople() {
-        log.info("Get request /admin/report/reservationPerMonth");
+        log.info("Get request /admin/report/reservationNumberOfPeople");
         return reportService.reservationNumberOfPeople();
     }
 
     @GetMapping("/admin/report/expenditureOnSalaries")
     @ResponseBody
     public Report expenditureOnSalaries() {
-        log.info("Get request /admin/report/reservationPerMonth");
+        log.info("Get request /admin/report/expenditureOnSalaries");
         return reportService.expenditureOnSalaries();
     }
 
     @GetMapping("/admin/report/employees")
     @ResponseBody
     public Report employees() {
-        log.info("Get request /admin/report/reservationPerMonth");
+        log.info("Get request /admin/report/employees");
         return reportService.employees();
     }
 }

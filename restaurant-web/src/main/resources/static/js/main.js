@@ -88,11 +88,12 @@ $('document').ready(function () {
     $('.char-reservation-per-day').on('click', function (event) {
         event.preventDefault();
 
+        document.getElementById("chartContainer").innerHTML = '&nbsp;';
+        document.getElementById("chartContainer").innerHTML = '<canvas id="bar-chart" width="800" height="450"></canvas>';
+
         var href = $(this).attr('href');
 
         $.get(href, function (report, status) {
-            console.log("HejHej");
-
             new Chart(document.getElementById("bar-chart"), {
                 type: 'bar',
                 data: {
@@ -118,10 +119,13 @@ $('document').ready(function () {
 
     $('.char-reservation-per-month').on('click', function (event) {
         event.preventDefault();
+
+        document.getElementById("chartContainer").innerHTML = '&nbsp;';
+        document.getElementById("chartContainer").innerHTML = '<canvas id="bar-chart" width="800" height="450"></canvas>';
+
         var href = $(this).attr('href');
 
         $.get(href, function (report, status) {
-            console.log("HejHej");
             new Chart(document.getElementById("bar-chart"), {
                 type: 'bar',
                 data: {
@@ -147,77 +151,101 @@ $('document').ready(function () {
 
     $('.char-reservation-persons').on('click', function (event) {
         event.preventDefault();
-        new Chart(document.getElementById("bar-chart"), {
-            type: 'line',
-            data: {
-                labels: ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela"],
-                datasets: [
-                    {
-                        label: "Population (millions)",
-                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                        data: [2478, 5267, 734, 784, 433]
+
+        document.getElementById("chartContainer").innerHTML = '&nbsp;';
+        document.getElementById("chartContainer").innerHTML = '<canvas id="bar-chart" width="800" height="450"></canvas>';
+
+        var href = $(this).attr('href');
+
+        $.get(href, function (report, status) {
+            new Chart(document.getElementById("bar-chart"), {
+                type: 'bar',
+                data: {
+                    labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+                    datasets: [
+                        {
+                            label: "Rezerwacje",
+                            backgroundColor: "#3862CD",
+                            data: [report.onePersonReservation, report.twoPersonReservation, report.threePersonReservation, report.fourPersonReservation, report.fivePersonReservation, report.sixPersonReservation, report.sevenPersonReservation,
+                                report.eightPersonReservation, report.ninePersonReservation, report.tenPersonReservation]
+                        }
+                    ]
+                },
+                options: {
+                    legend: {display: false},
+                    title: {
+                        display: true,
+                        text: 'Liczba rezerwacji ze względu na liczność rezerwacji'
                     }
-                ]
-            },
-            options: {
-                legend: {display: false},
-                title: {
-                    display: true,
-                    text: 'Predicted world population (millions) in 2050'
                 }
-            }
-        });
+            });
+        })
     });
 
 
     $('.char-reservation-expenditure-on-salaries').on('click', function (event) {
         event.preventDefault();
-        new Chart(document.getElementById("bar-chart"), {
-            type: 'line',
-            data: {
-                labels: ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela"],
-                datasets: [
-                    {
-                        label: "Population (millions)",
-                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                        data: [2478, 5267, 734, 784, 433]
+
+        document.getElementById("chartContainer").innerHTML = '&nbsp;';
+        document.getElementById("chartContainer").innerHTML = '<canvas id="bar-chart" width="800" height="450"></canvas>';
+
+        var href = $(this).attr('href');
+
+        $.get(href, function (report, status) {
+            new Chart(document.getElementById("bar-chart"), {
+                type: 'line',
+                data: {
+                    labels: ["Kucharze", "Kierownicy", "Kelnerzy"],
+                    datasets: [
+                        {
+                            label: "Wydatki",
+                            backgroundColor: "#3862CD",
+                            data: [report.cookExpenditureOnSalaries, report.managerExpenditureOnSalaries, report.waiterExpenditureOnSalaries]
+                        }
+                    ]
+                },
+                options: {
+                    legend: {display: false},
+                    title: {
+                        display: true,
+                        text: 'Wydatki na płace w zależności od stanwski'
                     }
-                ]
-            },
-            options: {
-                legend: {display: false},
-                title: {
-                    display: true,
-                    text: 'Predicted world population (millions) in 2050'
                 }
-            }
-        });
+            });
+        })
     });
 
     $('.char-reservation-workers').on('click', function (event) {
         event.preventDefault();
-        new Chart(document.getElementById("bar-chart"), {
-            type: 'line',
-            data: {
-                labels: ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela"],
-                datasets: [
-                    {
-                        label: "Population (millions)",
-                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                        data: [2478, 5267, 734, 784, 433]
-                    }
-                ]
-            },
-            options: {
-                legend: {display: false},
-                title: {
-                    display: true,
-                    text: 'Predicted world population (millions) in 2050'
-                }
-            }
-        });
-    });
 
+        document.getElementById("chartContainer").innerHTML = '&nbsp;';
+        document.getElementById("chartContainer").innerHTML = '<canvas id="bar-chart" width="800" height="450"></canvas>';
+
+        var href = $(this).attr('href');
+
+        $.get(href, function (report, status) {
+            new Chart(document.getElementById("bar-chart"), {
+                type: 'line',
+                data: {
+                    labels: ["Kierownik", "Kelner", "Kucharz"],
+                    datasets: [
+                        {
+                            label: "Zatrudnieni",
+                            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                            data: [report.managersHired, report.waiterEsHired, report.cooksHired]
+                        }
+                    ]
+                },
+                options: {
+                    legend: {display: false},
+                    title: {
+                        display: true,
+                        text: 'Liczba pracowników z podziałem na stanowiska'
+                    }
+                }
+            });
+        })
+    });
 });
 
 

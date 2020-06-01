@@ -1,11 +1,13 @@
 package services.springdatajpa;
 
 import lombok.extern.slf4j.Slf4j;
+import model.Cook;
+import model.Manager;
 import model.Report;
+import model.Waiter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import services.ReportService;
-import services.ReservationService;
+import services.*;
 import util.Utils;
 
 import java.time.DayOfWeek;
@@ -20,6 +22,16 @@ public class ReportServiceImpl implements ReportService{
 
     @Autowired
     ReservationService reservationService;
+
+    @Autowired
+    ManagerService managerService;
+
+    @Autowired
+    WaiterService waiterService;
+
+    @Autowired
+    CookService cookService;
+
 
     @Override
     public Report reservationPerDay() {
@@ -55,17 +67,36 @@ public class ReportServiceImpl implements ReportService{
 
     @Override
     public Report reservationNumberOfPeople() {
-        return null;
+        Report report = new Report();
+        report.setOnePersonReservation(countReservationForPersons(1));
+        report.setTwoPersonReservation(countReservationForPersons(2));
+        report.setThreePersonReservation(countReservationForPersons(3));
+        report.setFourPersonReservation(countReservationForPersons(4));
+        report.setFivePersonReservation(countReservationForPersons(5));
+        report.setSixPersonReservation(countReservationForPersons(6));
+        report.setSevenPersonReservation(countReservationForPersons(7));
+        report.setEightPersonReservation(countReservationForPersons(8));
+        report.setNinePersonReservation(countReservationForPersons(9));
+        report.setTenPersonReservation(countReservationForPersons(10));
+        return report;
     }
 
     @Override
     public Report expenditureOnSalaries() {
-        return null;
+        Report report = new Report();
+        report.setCookExpenditureOnSalaries(sumExpenditureCook());
+        report.setManagerExpenditureOnSalaries(sumExpenditureManager());
+        report.setWaiterExpenditureOnSalaries(sumExpenditureWaiter());
+        return report;
     }
 
     @Override
     public Report employees() {
-        return null;
+        Report report = new Report();
+        report.setCooksHired(countCooks());
+        report.setManagersHired(countManagers());
+        report.setWaiterEsHired(countWaiters());
+        return report;
     }
 
     private Long countReservationForDay(DayOfWeek dayOfWeek){
@@ -78,5 +109,41 @@ public class ReportServiceImpl implements ReportService{
         return reservationService.findAll().stream()
                 .filter(reservation -> Utils.getMonthOfDate(reservation.getDate()).equals(month))
                 .count();
+    }
+
+    private Long countReservationForPersons(int persons){
+        return reservationService.findAll().stream()
+                .filter(reservation ->reservation.getPersons() ==persons)
+                .count();
+    }
+
+    private int sumExpenditureCook(){
+        return cookService.findAll().stream()
+                .mapToInt(Cook::getSalary)
+                .sum();
+    }
+
+    private int sumExpenditureManager(){
+        return managerService.findAll().stream()
+                .mapToInt(Manager::getSalary)
+                .sum();
+    }
+
+    private int sumExpenditureWaiter(){
+        return waiterService.findAll().stream()
+                .mapToInt(Waiter::getSalary)
+                .sum();
+    }
+
+    private int countCooks(){
+        return cookService.findAll().size();
+    }
+
+    private int countManagers(){
+        return managerService.findAll().size();
+    }
+
+    private int countWaiters(){
+        return waiterService.findAll().size();
     }
 }
