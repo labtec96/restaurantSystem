@@ -13,8 +13,6 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Entity
-@Table(name = "waiter")
-@PrimaryKeyJoinColumn(name = "user")
 public class Waiter extends User{
 
     private String percentageOfTips;

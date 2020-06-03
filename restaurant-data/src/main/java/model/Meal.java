@@ -19,6 +19,6 @@ public class Meal extends BaseEntity{
 
     private String name;
     private String description;
-    private String weight;
-    private int price;
+    private int weight;
+    private float price;
 }

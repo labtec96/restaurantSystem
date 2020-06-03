@@ -23,8 +23,8 @@ public class MealDto {
 
     private String description;
 
-    private String weight;
+    private int weight;
 
     @NotNull
-    private int price;
+    private float price;
 }
