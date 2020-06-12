@@ -92,7 +92,7 @@ public class UserController {
         return "redirect:/admin/worker";
     }
 
-    @GetMapping({"/", "/welcome"})
+    @GetMapping({"/", "/welcome", "/homepage.html", "/homepage"})
     public String welcome(Model model) {
         return "welcome";
     }

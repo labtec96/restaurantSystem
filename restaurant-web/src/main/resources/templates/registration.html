@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <!-- this is header-css -->
@@ -16,14 +16,16 @@
     <a href="/reservation">Rezerwacja</a>
     <a href="/menu">Menu</a>
     <a href="/about">O nas</a>
-    <a href="/login">Zaloguj się</a>
+    <form sec:authorize="isAuthenticated()" action="/logout" method="POST">
+        <a href="#" onclick="this.parentNode.submit()">Wyloguj</a>
+    </form>
+    <a sec:authorize="isAnonymous()" href="/login">Zaloguj się</a>
 </div>
 <div class="full-height bg-contrast-variant-1">
     <div id="openMenu" onclick="openNav()">☰</div>
     <div class="container" id="registrationForm">
 
         <div>
-            <h1 th:utext="#{label.form.title}">form</h1>
             <br/>
             <div class="form-group row">
                 <h2 class="col-sm-6" th:utext="#{label.form.titleRequired}">form</h2>
@@ -32,7 +34,7 @@
             <form th:action="@{/registration}" method="POST">
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <label th:utext="#{label.user.firstName}">First nameę</label>
+                        <label style="color: black"  th:utext="#{label.user.firstName}">First nameę</label>
                         <span><input class="form-control" name="firstName" value="" required="required"/></span>
                         <span id="firstNameError" class="alert alert-danger col-sm-4" style="display:none"></span>
                         <span class="help-block" th:if="${#fields.hasErrors('user.firstName')}">
@@ -42,18 +44,18 @@
                     </span>
                     </div>
                     <div class="col-sm-3">
-                        <label th:utext="#{label.address.street}">Street</label>
+                        <label style="color: black" th:utext="#{label.address.street}">Street</label>
                         <span><input class="form-control" name="street" value=""/></span>
                     </div>
                     <div class="col-sm-3">
-                        <label th:utext="#{label.address.numberOfHouseOrApartment}">Number of house apartment
+                        <label style="color: black"  th:utext="#{label.address.numberOfHouseOrApartment}">Number of house apartment
                             name</label>
                         <span><input class="form-control" name="numberOfHouseOrApartment" value=""/></span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <label th:utext="#{label.user.lastName}">last</label>
+                        <label style="color: black"  th:utext="#{label.user.lastName}">last</label>
                         <span class="col-sm-5"><input class="form-control" name="lastName" value=""
                                                       required="required"/></span>
                         <span class="help-block" th:if="${#fields.hasErrors('user.lastName')}">
@@ -63,13 +65,13 @@
                     </span>
                     </div>
                     <div class="col-sm-6">
-                        <label th:utext="#{label.address.city}">City</label>
+                        <label style="color: black"  th:utext="#{label.address.city}">City</label>
                         <span><input class="form-control" name="city" value=""/></span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <label th:utext="#{label.user.email}">email</label>
+                        <label style="color: black"  th:utext="#{label.user.email}">email</label>
                         <span class="col-sm-5"><input type="email" class="form-control" name="email" value=""
                                                       required="required"/></span>
                         <span class="help-block" th:if="${#fields.hasErrors('user.email')}">
@@ -79,13 +81,13 @@
                     </span>
                     </div>
                     <div class="col-sm-6">
-                        <label th:utext="#{label.address.postcode}">Postcode</label>
+                        <label style="color: black"  th:utext="#{label.address.postcode}">Postcode</label>
                         <span><input class="form-control" name="postcode" value=""/></span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <label th:utext="#{label.user.password}">password</label>
+                        <label style="color: black"  th:utext="#{label.user.password}">password</label>
                         <span class="col-sm-5"><input id="password" class="form-control" name="password" value=""
                                                       type="password" required="required"/></span>
                         <span class="help-block" th:if="${#fields.hasErrors('user.password')}">
@@ -95,13 +97,13 @@
                     </span>
                     </div>
                     <div class="col-sm-6">
-                        <label th:utext="#{label.address.province}">Province</label>
+                        <label style="color: black"  th:utext="#{label.address.province}">Province</label>
                         <span><input class="form-control" name="province" value=""/></span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <label th:utext="#{label.user.passwordConfirm}">confirm</label>
+                        <label style="color: black"  th:utext="#{label.user.passwordConfirm}">confirm</label>
                         <span class="col-sm-5"><input id="matchPassword" class="form-control" name="passwordConfirm"
                                                       value="" type="password" required="required"/></span>
                         <span class="help-block" th:if="${#fields.hasErrors('user')}">
@@ -111,12 +113,12 @@
                     </span>
                     </div>
                     <div class="col-sm-6">
-                        <label th:utext="#{label.address.country}">Country</label>
+                        <label style="color: black"  th:utext="#{label.address.country}">Country</label>
                         <span><input class="form-control" name="country" value=""/></span>
                     </div>
                 </div>
                 <br/>
-                <button type="submit" class="btn btn-primary" th:utext="#{label.form.submit}">submit</button>
+                <button type="submit" class="btn btn-lg btn-primary btn-block" th:utext="#{label.form.submit}">submit</button>
             </form>
             <br/>
         </div>

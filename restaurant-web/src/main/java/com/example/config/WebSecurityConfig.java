@@ -33,24 +33,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //System.out.println("Elo trzy dwa zero");
         http
                 .authorizeRequests()
-                    .antMatchers("/", "/home", "/about","/registration").permitAll()
-                    .antMatchers("/homepage","/homepage.html","/reservation","reservation.html").access("hasAnyAuthority('ROLE_USER','ROLE_ADMIN')")
-                    .antMatchers("/admin/**","/admin/**/**").access("hasAnyAuthority('ROLE_ADMIN')")
+                .antMatchers("/", "/home", "/about", "/registration").permitAll()
+                .antMatchers("/homepage", "/homepage.html", "/reservation", "reservation.html").access("hasAnyAuthority('ROLE_USER','ROLE_ADMIN', 'ROLE_MANAGER','ROLE_COOK','ROLE_WAITER')")
+                .antMatchers("/admin/menu", "/admin/menu/**").access("hasAnyAuthority('ROLE_ADMIN','ROLE_MANAGER','ROLE_COOK')")
+                .antMatchers("/admin/report", "/admin/report/**").access("hasAnyAuthority('ROLE_ADMIN','ROLE_MANAGER')")
+                .antMatchers("/admin/reservation", "/admin/reservation/**","/admin").access("hasAnyAuthority('ROLE_ADMIN','ROLE_MANAGER','ROLE_COOK','ROLE_WAITER')")
+                .antMatchers("/admin/table", "/admin/table/**").access("hasAnyAuthority('ROLE_ADMIN', 'ROLE_MANAGER')")
+                .antMatchers("/admin/worker", "/admin/worker/**").access("hasAnyAuthority('ROLE_ADMIN', 'ROLE_MANAGER')")
                 .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .usernameParameter("email")
-                    .defaultSuccessUrl("/homepage.html", false)
-                    .permitAll()
-                .and().csrf().ignoringAntMatchers("/h2-console/**","/login", "/logout")//don't apply CSRF protection to /h2-console
+                .loginPage("/login")
+                .usernameParameter("email")
+                .defaultSuccessUrl("/homepage.html", false)
+                .permitAll()
+                .and().csrf().ignoringAntMatchers("/h2-console/**", "/login", "/logout")//don't apply CSRF protection to /h2-console
                 .and().headers().frameOptions().sameOrigin()
                 .and()
                 .logout()
-                    .permitAll();
-
+                .permitAll();
     }
 
 

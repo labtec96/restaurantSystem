@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <!-- this is header-css -->
@@ -14,11 +14,11 @@
 <body>
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="/admin/report">Raporty</a>
-    <a href="/admin/table">Stoliki</a>
-    <a href="/admin/reservation">Rezerwacje</a>
-    <a href="/admin/menu">Menu</a>
-    <a href="/admin/worker">Pracownicy</a>
+    <a sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')" href="/admin/report">Raporty</a>
+    <a sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')" href="/admin/table">Stoliki</a>
+    <a sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_COOK', 'ROLE_MANAGER', 'ROLE_WAITER')" href="/admin/reservation">Rezerwacje</a>
+    <a sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_COOK', 'ROLE_MANAGER')" href="/admin/menu">Menu</a>
+    <a sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')" href="/admin/worker">Pracownicy</a>
     <form action="/logout" method="POST">
         <a href="#" onclick="this.parentNode.submit()">Wyloguj</a>
     </form>
@@ -48,7 +48,7 @@
                     <td th:text="${manager.email}">3</td>
                     <td th:text="${manager.numberOfRestaurantRoom}">3</td>
                     <td><button th:href="@{'/admin/manager/' + ${manager.id}}" class="btn btn-warning edit-manager">Edytuj</button></td>
-                    <td><a href="#" th:href="@{'/admin/user/' + ${manager.id} + '/delete'}">Usuń pracownika</a></td>
+                    <td><a href="#" th:href="@{'/admin/user/' + ${manager.id} + '/delete'}">Usuń kierownika</a></td>
                 </tr>
             </table>
         </div>
@@ -85,6 +85,7 @@
                     <th>Imię</th>
                     <th>Nazwisko</th>
                     <th>Email</th>
+                    <th>Procent napiwków</th>
                     <th>Edytuj</th>
                     <th>Usuń</th>
                 </tr>
@@ -93,8 +94,9 @@
                     <td th:text="${waiter.firstName}">334</td>
                     <td th:text="${waiter.lastName}">3</td>
                     <td th:text="${waiter.email}">3</td>
+                    <td th:text="${waiter.percentageOfTips + '%'}">3</td>
                     <td><button th:href="@{'/admin/waiter/' + ${waiter.id}}" class="btn btn-warning edit-waiter">Edytuj</button></td>
-                    <td><a href="#" th:href="@{'/admin/user/' + ${waiter.id} + '/delete'}">Usuń pracownika</a></td>
+                    <td><a href="#" th:href="@{'/admin/user/' + ${waiter.id} + '/delete'}">Usuń kelnera</a></td>
                 </tr>
             </table>
         </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <!-- this is header-css -->
@@ -24,11 +24,11 @@
 <body>
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="/admin/report">Raporty</a>
-    <a href="/admin/table">Stoliki</a>
-    <a href="/admin/reservation">Rezerwacje</a>
-    <a href="/admin/menu">Menu</a>
-    <a href="/admin/worker">Pracownicy</a>
+    <a sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')" href="/admin/report">Raporty</a>
+    <a sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')" href="/admin/table">Stoliki</a>
+    <a sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_COOK', 'ROLE_MANAGER', 'ROLE_WAITER')" href="/admin/reservation">Rezerwacje</a>
+    <a sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_COOK', 'ROLE_MANAGER')" href="/admin/menu">Menu</a>
+    <a sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')" href="/admin/worker">Pracownicy</a>
     <form action="/logout" method="POST">
         <a href="#" onclick="this.parentNode.submit()">Wyloguj</a>
     </form>
