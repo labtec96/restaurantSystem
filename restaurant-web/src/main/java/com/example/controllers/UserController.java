@@ -16,6 +16,7 @@ import services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 
 /**
  * Created by ch on 2020-05-06
@@ -83,6 +84,17 @@ public class UserController {
             model.addAttribute("message", "Zostałeś wylogowane poprawnie");
 
         return "login";
+    }
+
+    @GetMapping("/userReservation")
+    public String reservation(Principal user, Model model) {
+        log.info("Get request /reservation");
+
+        User user1 = userService.findByEmail(user.getName());
+
+        model.addAttribute("reservations", user1.getReservations());
+
+        return "reservation";
     }
 
     @GetMapping("/admin/user/{id}/delete")
