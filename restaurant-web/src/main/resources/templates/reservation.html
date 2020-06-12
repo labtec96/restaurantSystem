@@ -26,6 +26,7 @@
     <a href="/reservation">Rezerwacja</a>
     <a href="/menu">Menu</a>
     <a href="/about">O nas</a>
+    <a sec:authorize="isAuthenticated()" href="/userReservation">Moje rezerwacje</a>
     <form sec:authorize="isAuthenticated()" action="/logout" method="POST">
         <a href="#" onclick="this.parentNode.submit()">Wyloguj</a>
     </form>
