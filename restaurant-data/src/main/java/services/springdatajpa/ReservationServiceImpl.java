@@ -40,43 +40,28 @@ public class ReservationServiceImpl implements ReservationService {
     RestaurantTableService restaurantTableService;
 
     @Override
-    public void book(Principal userPrincipal, ReservationDto reservationDto) {
+    public void book(Principal userPrincipal, Reservation reservation) {
         User user = userService.findByEmail(userPrincipal.getName());
-        log.info(reservationDto.getStartHour());
-        log.info(reservationDto.getEndHour());
-        if(Utils.isValidDate(reservationDto.getDate(),reservationDto.getStartHour())) {
-            LocalDate date = Utils.parseDate(reservationDto.getDate());
-            LocalTime startHour = Utils.parseHour(reservationDto.getStartHour());
-            LocalTime endHour = Utils.parseHour(reservationDto.getEndHour());
-            log.info(date.toString());
-            log.info(startHour.toString());
-            log.info(endHour.toString());
-            Optional<RestaurantTable> restaurantTableOptional =restaurantTableService.findFreeTable(date, startHour, endHour, reservationDto.getPersons());
-            if (restaurantTableOptional.isPresent()){
-                RestaurantTable restaurantTable = restaurantTableOptional.get();
+        log.info(reservation.getStartHour().toString());
+        log.info(reservation.getEndHour().toString());
 
-                Reservation reservation = new Reservation();
+        LocalDate date = reservation.getDate();
+        LocalTime startHour = reservation.getStartHour();
+        LocalTime endHour = reservation.getEndHour();
+        Optional<RestaurantTable> restaurantTableOptional = restaurantTableService.findFreeTable(date, startHour, endHour, reservation.getPersons());
+        if (restaurantTableOptional.isPresent()) {
+            RestaurantTable restaurantTable = restaurantTableOptional.get();
 
-                reservation.setDate(date);
-                reservation.setEndHour(endHour);
-                reservation.setStartHour(startHour);
-                reservation.setPersons(reservationDto.getPersons());
-                reservation.setRestaurantTable(restaurantTable);
-                reservation.setUser(user);
-                reservation.setStatus(Status.WERYFIKOWANA);
+            reservation.setRestaurantTable(restaurantTable);
+            reservation.setUser(user);
+            reservation.setStatus(Status.WERYFIKOWANA);
 
-                restaurantTableService.save(restaurantTable);
-                userService.save(user);
-                this.save(reservation);
-            }
-            else {
-                log.error("Table not found");
-                throw new RuntimeException("Table not found");
-            }
-        }
-        else {
-            log.error("Date bad format");
-            throw new RuntimeException("Bad date format");
+            restaurantTableService.save(restaurantTable);
+            userService.save(user);
+            this.save(reservation);
+        } else {
+            log.error("Table not found");
+            throw new RuntimeException("Table not found");
         }
     }
 

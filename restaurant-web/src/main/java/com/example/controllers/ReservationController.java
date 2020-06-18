@@ -3,6 +3,7 @@ package com.example.controllers;
 import dto.ReservationDto;
 import javassist.tools.rmi.ObjectNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import model.Reservation;
 import model.User;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import services.ReservationService;
 import services.UserService;
+import util.Utils;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  * Created by ch on 2020-05-15
@@ -43,10 +47,25 @@ public class ReservationController {
     public String getReservation(Principal user, Model model,  @ModelAttribute("reservation") @Valid ReservationDto reservationDto) {
         log.info("Get request /reservation/book");
 
-        User user1 = userService.findByEmail(user.getName());
+        //User user1 = userService.findByEmail(user.getName());
 
-        reservationService.book(user,reservationDto);
+        Reservation reservation = new Reservation();
 
+        LocalDate date = Utils.parseDate(reservationDto.getDate());
+        LocalTime startHour = Utils.parseHour(reservationDto.getStartHour());
+        LocalTime endHour = Utils.parseHour(reservationDto.getEndHour());
+        if(Utils.isValidDate(reservationDto.getDate(),reservationDto.getStartHour())) {
+            reservation.setDate(date);
+            reservation.setEndHour(endHour);
+            reservation.setStartHour(startHour);
+            reservation.setPersons(reservationDto.getPersons());
+
+            reservationService.book(user, reservation);
+        }
+        else {
+            log.error("Date bad format");
+            throw new RuntimeException("Bad date format");
+        }
         //reservationService
         //model.addAttribute("tables", restaurantTableService.findAll());
         return "redirect:/reservation";

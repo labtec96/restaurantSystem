@@ -16,7 +16,6 @@
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="/reservation">Rezerwacja</a>
     <a href="/menu">Menu</a>
-    <a href="/about">O nas</a>
     <a sec:authorize="isAuthenticated()" href="/userReservation">Moje rezerwacje</a>
     <form sec:authorize="isAuthenticated()" action="/logout" method="POST">
         <a href="#" onclick="this.parentNode.submit()">Wyloguj</a>
@@ -24,6 +23,30 @@
     <a sec:authorize="isAnonymous()" href="/login">Zaloguj się</a>
 </div>
 <main class="full-height">
+    <div class="full-height" id="main">
+        <div class="full-height bg-contrast-variant-1">
+            <div id="openMenu" onclick="openNav()">☰</div>
+            <h1>Menu</h1>
+            <div class="table-responsive" th:if="${not #lists.isEmpty(meals)}">
+                <table class="table table-hover">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>Nazwa</th>
+                        <th>Opis</th>
+                        <th>Gramatura</th>
+                        <th>Cena</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="meal : ${meals}">
+                        <td th:text="${meal.name}">paczek</td>
+                        <td th:text="${meal.description}">Opis</td>
+                        <td th:text="${meal.weight} + 'g'">200</td>
+                        <td th:text="${meal.price} + 'zł'">200</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 </main>
 </body>
 </html>

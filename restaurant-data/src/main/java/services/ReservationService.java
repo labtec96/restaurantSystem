@@ -12,7 +12,7 @@ import java.util.Set;
  */
 public interface ReservationService extends CrudService<Reservation,Long> {
 
-    void book(Principal user, ReservationDto reservationDto);
+    void book(Principal user, Reservation reservation);
 
     void confirmById(Long valueOf) throws ObjectNotFoundException;
 
