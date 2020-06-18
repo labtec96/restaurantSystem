@@ -92,9 +92,9 @@ public class UserController {
 
         User user1 = userService.findByEmail(user.getName());
 
-        model.addAttribute("reservations", user1.getReservations());
+        model.addAttribute("userReservation", user1.getReservations());
 
-        return "reservation";
+        return "userReservation";
     }
 
     @GetMapping("/admin/user/{id}/delete")

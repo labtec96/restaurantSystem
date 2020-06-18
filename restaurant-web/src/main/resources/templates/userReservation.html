@@ -23,6 +23,34 @@
     <a sec:authorize="isAnonymous()" href="/login">Zaloguj się</a>
 </div>
 <main class="full-height">
+    <div class="full-height" id="main">
+        <div id="openMenu" onclick="openNav()">☰</div>
+        <div class="table-responsive">
+            <h3 class="font-weight-bold text-dark d-flex justify-content-center mb-4">Rezerwacje</h3>
+            <table class="table table-hover">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>ID Rezerwacji</th>
+                    <th>Numer Stolika</th>
+                    <th>Data</th>
+                    <th>Godzina rozpoczęcia</th>
+                    <th>Godzina zakończenia</th>
+                    <th>Liczba osób</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tr th:each="reservation : ${userReservation}">
+                    <td th:text="${reservation.id}">334</td>
+                    <td th:text="${reservation.restaurantTable.number}">3</td>
+                    <td th:text="${reservation.date}">3</td>
+                    <td th:text="${reservation.startHour}">3</td>
+                    <td th:text="${reservation.endHour}">3</td>
+                    <td th:text="${reservation.persons}">3</td>
+                    <td th:text="${reservation.status}">3</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </main>
 </body>
 </html>
